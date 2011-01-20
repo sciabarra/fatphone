@@ -1,0 +1,37 @@
+# FatPhone 
+
+This is a first code dropo the FatPhone project, an open source Mobile Web Site built in FatWire.
+
+This is ONLY the  code  for the templates, but to effectively run the site you have to create manually a lot of stuff: 
+
+* the site
+* the pages
+* (future) flex family and new types 
+* (future) flex definitions
+
+Please check to our blog http://www.sciabarra.com/fatwire for tutorial how to build the site.
+
+# Quick summary:
+
+## Prequisites
+
+* Eclipse (I used Helios 3.5.6)
+
+* Fatwire Content Server (I used the JumpStart 7.0.2)
+
+# Prepare
+
+1. Install the [Fatwire Eclipse plugin](http://www.nl.fatwire.com/ide/)
+2. Create a site in FatWire
+3. Deploy resources/static.war in your applications server or unzip it in the the root of your web server  
+
+> You must be able then to access the css as http://yoursite/static/Framework/css/style.css
+
+# Deploy the code
+
+4. import the project in eclipse
+5. connect to Eclipse
+6. connect to ContentServer from Eclipse 
+7. commit to ContentServer
+
+Then, create pages and other content. More information [here](http://www.sciabarra.com/fatwire/fatphone)

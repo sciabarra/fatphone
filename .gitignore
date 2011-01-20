@@ -1,0 +1,6 @@
+.project
+.settings
+.classpath
+fp/WEB-INF/*
+fp/.cside/*
+.DS_Store

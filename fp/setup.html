@@ -1,0 +1,86 @@
+<html>
+<head><title>FatPhone Setup</title></head>
+<body>
+<h1>FatPhone Setup</h1>
+<form>
+<table>
+ <tr>
+   <td>ContentServer URL</td>
+   <td><input id="url" type="text" size="40" value="http://localhost:7001/cs/ContentServer"></td>
+ </tr>
+ <tr>
+   <td>Username</td>
+   <td><input id="user" type="text" value="fwadmin"></td>
+ </tr>
+ <tr>
+   <td>Password</td>
+   <td><input id="pass" type="text" value="xceladmin"></td>
+ </tr>
+ <tr>
+   <td>Site</td>
+   <td><input id="pub" type="text" value="FatPhone"></td>
+ </tr>
+ <tr>
+  <td align="right"><input id="checkConnection" type="button" value="Check Connection"></td>
+  <td align="left"><input  id="installer" type="button" disabled="true" value="Install"></td>
+ </tr>
+
+</table>
+</form>
+<pre id="message">
+</pre>
+</body>
+ <script type="text/javascript" src="jquery.min.js"></script>
+ 
+ <script type="text/javascript">
+ 
+ var csUrl;
+ 
+ function getCsUrl() {
+    return $('#url').val()
+     + "?pagename=OpenMarket/Xcelerate/Actions/RemoteContentPost"
+     + "&authusername=" +  $('#user').val()
+     + "&authpassword=" +  $('#pass').val()
+  }
+  
+ function msg(message) {
+     $("#message").html($("#message").html()+"\n"+message)
+ }
+ 
+ function checkConnection() {
+   csUrl = getCsUrl(); 
+   $.get(csUrl, function(data) {
+      if(data.indexOf("Login failed")>0) {
+        alert("Login failed, please check paramenters")
+      } else {
+        msg("Connection Parameters are ok.")
+        $("#checkConnection").attr("disabled", true)
+        $("#url").attr("disabled", true)
+        $("#user").attr("disabled", true)
+        $("#pass").attr("disabled", true)
+        $("#installer").attr("disabled", false)     
+      }
+   });
+ }
+
+ function install(type, name) {
+    jsonFile = type + "/" + name + ".js"
+    $.getJSON(jsonFile, function(data) {
+        //alert(data)
+        data.publication = $("#pub").val()
+        $.post(csUrl, data, function (result){
+              msg(result)
+        })
+    })
+ }
+ 
+ function installer() {
+     install('Page', 'Home')
+ }
+ 
+ $(function() {
+   $("#checkConnection").click(checkConnection);
+   $("#installer").click(installer)
+ })
+ </script>
+</html>
