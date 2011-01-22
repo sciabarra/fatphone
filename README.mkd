@@ -1,37 +1,23 @@
 # FatPhone 
 
-This is a first code dropo the FatPhone project, an open source Mobile Web Site built in FatWire.
+More information [here](http://www.sciabarra.com/fatwire/fatphone)
 
-This is ONLY the  code  for the templates, but to effectively run the site you have to create manually a lot of stuff: 
+FatPhone is an Open Source iPhone web site for Fatwire.
 
-* the site
-* the pages
-* (future) flex family and new types 
-* (future) flex definitions
+Please check  our blog http://www.sciabarra.com/fatwire for more information.
 
-Please check to our blog http://www.sciabarra.com/fatwire for tutorial how to build the site.
+# Prequisites
 
-# Quick summary:
+You need, of course, Fatwire Content Server (I used the JumpStart 7.0.2)
 
-## Prequisites
+# Deploy
 
-* Eclipse (I used Helios 3.5.6)
+1. Create a new site in FatWire (es. FatPhone) and enable Page, Template, SiteEntry and CSElement
+2. Copy all the content of folder fp as static content and be sure that it is accessible as  http://yoursite/fp/
 
-* Fatwire Content Server (I used the JumpStart 7.0.2)
+NOTE: be careful that *.jsp under /fp are NOT considered as JSP files but simple text files
 
-# Prepare
+3. Call http://yoursite/fp/setup.html, specify the correct credentials, click on Login then Install
 
-1. Install the [Fatwire Eclipse plugin](http://www.nl.fatwire.com/ide/)
-2. Create a site in FatWire
-3. Deploy resources/static.war in your applications server or unzip it in the the root of your web server  
+Then, you can create pages and your content. 
 
-> You must be able then to access the css as http://yoursite/static/Framework/css/style.css
-
-# Deploy the code
-
-4. import the project in eclipse
-5. connect to Eclipse
-6. connect to ContentServer from Eclipse 
-7. commit to ContentServer
-
-Then, create pages and other content. More information [here](http://www.sciabarra.com/fatwire/fatphone)
