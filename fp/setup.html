@@ -24,8 +24,7 @@
 		<td><input id="pub" type="text" value="FatPhone"></td>
 	</tr>
 	<tr>
-		<td align="right"><input id="checkConnection" type="button"
-			value="Login"></td>
+		<td align="right"><input id="login" type="button" value="Login"></td>
 		<td align="left"><input id="installer" type="button"
 			disabled="true" value="Install"></td>
 	</tr>
@@ -41,63 +40,52 @@
 <script type="text/javascript" src="jquery.min.js"></script>
 
 <script type="text/javascript">
+	//disable cache!
+	$.ajaxSetup({
+		// Disable caching of AJAX responses
+		cache : false
+	});
 
 	//catalog manage url
 	function catalogManagerUrl() {
-		return $('#url').val() + "CatalogManager" ;
+		return $('#url').val() + "CatalogManager";
 	}
 
 	// login/logout using CatalogManager
 	function loginUrl(flag) {
 		return catalogManagerUrl()
-		 	+ (flag ? "?ftcmd=login" 
-				 + "&username=" + $('#user').val()
-				 + "&password=" + $('#pass').val() 
-				 : "?ftcmd=logout")
+				+ (flag ? "?ftcmd=login" + "&username=" + $('#user').val()
+						+ "&password=" + $('#pass').val() : "?ftcmd=logout")
 	}
 
 	// remote content post
 	function remotePostUrl() {
 		return $('#url').val() + "/ContentServer"
 				+ "?pagename=OpenMarket/Xcelerate/Actions/RemoteContentPost"
-				+ "&authusername=" + $('#user').val() 
-				+ "&authpassword="
+				+ "&authusername=" + $('#user').val() + "&authpassword="
 				+ $('#pass').val();
 	}
-	
-	
-	function deleteRow(table,  key, value,  nextStep) {
-		var deleteUrl = $('#url').val() 
-	    + "/CatalogManager"
-		+ "?ftcmd=deleterow"
-		+ "&tablename=" + table 
-		+ "&tablekey=" + key
-		+ "&tablekeyvalue=" + value;
-		console.log(deleteUrl);
-		$.get(deleteUrl  ,	nextStep)
+
+	function deleteRow(table, key, value, nextStep) {
+		var deleteUrl = $('#url').val() + "/CatalogManager"
+				+ "?ftcmd=deleterow" + "&tablename=" + table + "&tablekey="
+				+ key + "&tablekeyvalue=" + value;
+
+		$.get(deleteUrl, function() {
+			flush(table, nextStep);
+		})
 	}
-	
+
+	function flush(table, nextStep) {
+		var flushUrl = $('#url').val() + "/CatalogManager"
+				+ "?ftcmd=flushcatalog" + "&tablename=" + table;
+		$.get(flushUrl, nextStep);
+
+	}
+
 	// message area
 	function msg(message) {
 		$("#message").html($("#message").html() + "\n" + message)
-	}
-
-	// login
-	function checkConnection() {
-		$.get(loginUrl(true), function(data) {
-			//alert(data)
-			msg(data);
-			if (data.indexOf("FTCS|||result=failure") > 0) {
-				alert("Login failed, please check paramenters")
-			} else {
-				msg("Connection Parameters are ok.")
-				$("#checkConnection").attr("disabled", true)
-				$("#url").attr("disabled", true)
-				$("#user").attr("disabled", true)
-				$("#pass").attr("disabled", true)
-				$("#installer").attr("disabled", false)
-			}
-		});
 	}
 
 	// variables
@@ -105,12 +93,15 @@
 	var uploadLocalFile;
 	var uploadRemoteFile;
 	var elementName;
+	var resdetails1;
 
-	
 	// update url 	
 	function addRowAnswer(result) {
-		if(result.indexOf("FTCS|||result=success")==-1)
+		
+		if (result.indexOf("FTCS|||result=success") == -1)
 			msg("ERROR: Cannot upload file");
+		else
+			msg("Element uploaded.")
 	}
 
 	function addRow(uploadFileBody) {
@@ -121,26 +112,36 @@
 			"tablename" : "ElementCatalog",
 			"elementname" : elementName,
 			"url" : uploadFileBody,
-			"url_file" : uploadRemoteFile
+			"url_file" : uploadRemoteFile,
+			"resdetails1" : resdetails1
 		};
-		$.post(catalogManagerUrl(), request, addRowAnswer)
+		$.post(catalogManagerUrl(), request, function() {
+			flush("ElementCatalog", addRowAnswer)
+		});
 	}
 
 	// check if remote post was successfule
-	// and TODO get the new asset id
+	// and get the new asset id
 	function checkRemotePost(result) {
-		msg(result);
-		return true;
+		msg(result)
+		var m = /^Success:.*, ([0-9]+) saved\.$/.exec(result);
+		if (m) {
+			resdetails1 = "tid=" + m[1];
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	// react to a remote answer
 	function remotePostAnswer(result) {
-		var ok = checkRemotePost(result);
-		if (ok && doUpload) {
+		if (doUpload) {
 			//alert(uploadLocalFile)
 			//console.log(uploadLocalFile)
-			deleteRow("ElementCatalog", "elementname", elementName,
-					function() { $.get(uploadLocalFile, addRow); })
+			deleteRow("ElementCatalog", "elementname", elementName, function() {
+				$.get(uploadLocalFile, addRow);
+			})
 		}
 	}
 
@@ -152,57 +153,85 @@
 		if ("rootelement" in data) {
 			//alert("ok")
 			doUpload = true;
-			uploadLocalFile = data.AssetType + data.rootelement + ".jsp"
+			
 			if (data.rootelement.charAt(0) == '/') {
 				uploadRemoteFile = "Typeless" + data.rootelement + ".jsp"
+				uploadLocalFile = data.AssetType + data.rootelement + ".jsp"
 			} else {
-				uploadRemoteFile = data.AssetType + data.rootelement + ".jsp"
+				uploadRemoteFile = data.AssetType + "/" + data.rootelement + ".jsp"
+				uploadLocalFile = data.AssetType + "/"+ data.rootelement + ".jsp"
 			}
 		}
 	}
 
-	// upload the asset with the remote post
+	// 3 upload the asset with the remote post
+	
+
+	
 	function remotePost(data) {
 
 		//alert(remotePostUrl())
 		// add the publication
 		data.publication = $("#pub").val();
-		
+
 		// check if  an upload is required
 		checkUpload(data)
 
 		// delete row then post to the remote url entry point
-		deleteRow(data.AssetType, "name", data.name,
-		  function() {  $.post(remotePostUrl(), data, remotePostAnswer) 
-		})
+		function nextStep() {
+			deleteRow(data.AssetType, "name", data.name, function() {
+				$.post(remotePostUrl(), data, function(result) {
+					checkRemotePost(result)
+					flush(data.AssetType, remotePostAnswer)
+				})
+			})
+		}
+		
+		if ("rootelement" in data) {
+			deleteRow("SiteCatalog", "rootelement", data.rootelement, function() {
+					flush("SiteCatalog", nextStep); })
+		} else
+			nextStep();
 	}
 
-	// load a file in json format
+	// 2 load a file in json format
 	function loadJson(jsonFile) {
 		// perform a get of the json file
 		$.getJSON(jsonFile, remotePost);
 	}
 
-	// install an asset
+	// 1 install an asset
 	function install(type, name) {
-		
 		elementName = name;
-		loadJson(type + "/" + name + ".js");		
+		loadJson(type + "/" + name + ".js");
 	}
 
-	function installer() {		
-		//remotePost('Page', 'Home')
-		//install('Template', '/fpLayout');
+	// login
+	function login() {
+		$.get(loginUrl(true), function(data) {
+			if (data.indexOf("FTCS|||result=failure") > 0) {
+				alert("Login failed, please check paramenters")
+			} else {
+				msg("Connection Parameters are ok.")
+				$("#login").attr("disabled", true)
+				$("#url").attr("disabled", true)
+				$("#user").attr("disabled", true)
+				$("#pass").attr("disabled", true)
+				$("#installer").attr("disabled", false)
+			}
+		});
+	}
+
+	function installer() {
+		install('Page', 'Home')
+		install('Template', '/fpLayout');
 		install('Template', 'Page/fpBody')
-		//install('Template', 'Page/fpItem')
+		install('Template', 'Page/fpItem')
 	}
 
 	$(function() {
-		$("#checkConnection").click(checkConnection);
-		$("#installer").click(installer)
-		//$("#cmLogin").click(cmLogin)
-		//$("#cmAddRow").click(cmRow)
-		//$("#cmLogout").click(cmLogout)
+		$("#login").click(login);
+		$("#installer").click(installer);
 	})
 </script>
 </html>

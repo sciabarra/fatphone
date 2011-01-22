@@ -16,8 +16,6 @@ INPUT
 
 OUTPUT
 
-Salve!
-
 --%>
 	<%-- Record dependencies for the Template --%>
 	<ics:if condition='<%=ics.GetVar("tid")!=null%>'>
