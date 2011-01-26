@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>CatalogManager Test</title>
+</head>
+<body>
+
+<h1>Catalog Manager Test</h1>
+<div id="result" style="border: 1px solid red">&nbsp;</div>
+</form>
+
+<form>
+<table>
+	<tr>
+		<td>ContentServer Prefix</td>
+		<td><input id="url" type="text" size="40"
+			value="http://localhost:8080/cs/"></td>
+	</tr>
+	<tr>
+		<td>Username</td>
+		<td><input id="user" type="text" value="fwadmin"></td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td><input id="pass" type="password" value="xceladmin"></td>
+	</tr>
+	<tr>
+		<td>Site</td>
+		<td><input id="pub" type="text" value="FatPhone"></td>
+	</tr>
+
+	<tr>
+		<td align="center" colspan="2"><input id="login" type="button"
+			value="Login"></td>
+	</tr>
+	<tr>
+		<td>TableName</td>
+		<td><input id="tablename" type="text" value="Page"></td>
+	</tr>
+	<tr>
+		<td>SelWhere</td>
+		<td><input id="selwhere" type="text" value="name='Test'"></td>
+	</tr>
+
+	<tr>
+		<td>SelWhat</td>
+		<td><input id="selwhat" type="text" value="*"></td>
+	</tr>
+
+	<tr>
+		<td align="center" colspan="2"><input id="selectRow"
+			type="button" value="Select Row"><input id="checkExist"
+			type="button" value="Check Exist"></td>
+	</tr>
+
+	<tr>
+		<td>TableName</td>
+		<td><input id="tablename1" type="text" value="ElementCatalog"></td>
+	</tr>
+
+	<tr>
+		<td>ElementName</td>
+		<td><input id="elementname" type="text" value="Page/test"></td>
+	</tr>
+
+	<tr>
+		<td>Url</td>
+		<td><textarea id="url1" rows="10" cols="40">Hello, world!</textarea></td>
+	</tr>
+
+	<tr>
+		<td>Url_File</td>
+		<td><input id="url_file1" type="text" value="Test.jsp"></td>
+	</tr>
+	<tr>
+		<td>Url_Folder</td>
+		<td><input id="url_folder1" type="text" value="Page"></td>
+	</tr>
+
+
+	<tr>
+		<td align="center" colspan="2"><input id="addRow" type="button"
+			value="Add Row"><input id=editRow type="button"
+			value="Edit Row"><input id="deleteRow" type="button"
+			value="Delete Row"></td>
+	</tr>
+
+
+</table>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="catalogmanager.js"></script>
+<script type="text/javascript">
+	var cm;
+
+	function showResult(data) {
+		//alert(data)
+		console.log("showResult:"+data)
+		$('#result').html(data.answer)
+	}
+
+	$(function() {
+		$("#login").click(function() {
+
+			cm = new CatalogManager($('#url').val())
+			cm.login($('#user').val(), $('#pass').val(), function(result) {
+				showResult(result);
+			}, function(result) {
+				alert("Bad username or password.")
+				showResult(result);
+			})
+		})
+
+		$("#selectRow").click(
+				function() {
+					cm.selectRow($('#tablename').val(), $('#selwhere').val(),
+							$('#selwhat').val(), showResult)
+				})
+
+		$("#checkExist").click(
+				function() {
+					cm.checkExist($('#tablename').val(), $('#selwhere').val(),
+							function(result) {
+								alert('Found!')
+								showResult(result);
+							}, function(result) {
+								alert('Not found!')
+								showResult(result);
+							})
+				})
+
+		$("#addRow").click(function() {
+			cm.addRow($('#tablename1').val(), {
+				elementname : $('#elementname').val(),
+				url : $('#url1').val(),
+				url_file : $('#url_file1').val(),
+				url_folder : $('#url_folder1').val()
+			}, showResult)
+		})
+		$("#editRow").click(function() {
+			cm.editRow($('#tablename1').val(), {
+				elementname : $('#elementname').val(),
+				url : $('#url1').val(),
+				url_file : $('#url_file1').val(),
+				url_folder : $('#url_folder1').val()
+			}, showResult)
+		})
+		$("#deleteRow").click(function() {
+			cm.deleteRow($('#tablename1').val(), {
+				elementname : $('#elementname').val()
+			}, showResult)
+		})
+	})
+</script>
+</html>
