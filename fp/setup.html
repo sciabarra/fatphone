@@ -4,6 +4,7 @@
 </head>
 <body>
 <h1>FatPhone Setup</h1>
+<font color="red">Warning: this installer is still buggy and is undergoing a rewrite - don't use it on production systems</font>
 <form>
 <table>
 	<tr>
@@ -120,7 +121,7 @@
 		});
 	}
 
-	// check if remote post was successfule
+	// check if remote post was successful
 	// and get the new asset id
 	function checkRemotePost(result) {
 		msg(result)
@@ -164,10 +165,7 @@
 		}
 	}
 
-	// 3 upload the asset with the remote post
-	
-
-	
+	// 3 upload the asset with the remote post	
 	function remotePost(data) {
 
 		//alert(remotePostUrl())

@@ -90,11 +90,13 @@ function postAsset(action, data, nextStep) {
 		var m = /^Success:.*, ([0-9]+) saved\.$/.exec(result);
 		if (m) {
 			// update element with the tid
-			/*
-			 * if ("rootelement" in data) cm.editRow("ElementCatalog", {
-			 * "elementname" : data.rootelement, "resdetails1" : "tid=" + m[1] },
-			 * nextStep)
-			 */
+
+			if ("rootelement" in data)
+				cm.editRow("ElementCatalog", {
+					"elementname" : data.rootelement,
+					"resdetails1" : //
+					(data.AssetType == "Template" ? "tid=" : "eid=") + m[1]
+				}, nextStep)
 
 			nextStep(result);
 		} else {
@@ -126,13 +128,13 @@ function installAsset(type, name, nextStep) {
 			var where = "name='" + name + "'";
 		cm.checkExist(type, where, // found?
 		function(result) {
-			alert("found");
+			//alert("found");
 			// propagate id collected when searched the asset
 			data.id = result.id;
 			postAsset("update", data, nextStep);
 		}, // not found?
 		function() {
-			alert("not found")
+			//alert("not found")
 			$.getJSON(jsonFile, function(data) {
 				postAsset("addrow", data, nextStep)
 			})

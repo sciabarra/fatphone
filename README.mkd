@@ -8,7 +8,7 @@ Please check  our blog http://www.sciabarra.com/fatwire for more information.
 
 # Prequisites
 
-You need, of course, Fatwire Content Server (I used the JumpStart 7.0.2)
+You need, of course, Fatwire Content Server (I used the JumpStart 7.0.2 and 7.5.2)
 
 # Deploy
 
@@ -17,7 +17,7 @@ You need, of course, Fatwire Content Server (I used the JumpStart 7.0.2)
 
 NOTE: be careful that *.jsp under /fp are NOT considered as JSP files but simple text files
 
-3. Call http://yoursite/fp/setup.html, specify the correct credentials, click on Login then Install
+3. Call http://yoursite/fp/install.html, specify the correct credentials, click on Login, then Install all Elements then Install all Assets
 
-Then, you can create pages and your content. 
 
+Finally, you can place pages and create your hierarchy

@@ -9,7 +9,7 @@ function addRowAnswer(result) {
 	if (result.indexOf("FTCS|||result=success") == -1)
 		msg("ERROR: Cannot upload file");
 	else
-		msg("Element uploaded.")
+		msg("Element uploaded.");
 }
 
 // login using CatalogManager
@@ -19,7 +19,7 @@ function deleteRow(table, key, value, nextStep) {
 		'tablename' : table,
 		'tablekey' : key,
 		'tablekeyvalue' : value
-	}, nextStep)
+	}, nextStep);
 }
 /**
  * 
@@ -34,10 +34,10 @@ function CatalogManager(url) {
 	 */
 	function parseStatus(body) {
 
-		console.log("parseStatusPre");
-		var m = /<!--FTCS\|\|\|result=(.*?)\|\|\|reason=(.*?)\|\|\|err=(-?\d+)\|\|\|command=(.*?)\|\|\|params=(.*?)\|\|\|-->/
+		// console.log("parseStatusPre");
+		var m = /<!--FTCS\|\|\|result=(.*?)\|\|\|reason=(.*?)\|\|\|err=(-?\d+)\|\|\|command=(.*?)\|\|\|/m
 				.exec(body);
-		console.log(m);
+		// console.log(m);
 
 		if (m)
 			return {
@@ -47,9 +47,9 @@ function CatalogManager(url) {
 				"result" : m[1],
 				"reason" : m[2],
 				"err" : m[3],
-				"command" : m[4],
-				"params" : m[5]
-
+				"command" : m[4]
+			// params=(.*)\|\|\|-->
+			// "params" : m[5]
 			}
 		else
 			return {
@@ -58,20 +58,20 @@ function CatalogManager(url) {
 				"answer" : body
 			};
 	}
-	
+
 	/**
 	 * Login
 	 */
 	this.login = function(username, password, found, notFound) {
-		console.log("login");
+		// console.log("login");
 		$.get(this.url, {
 			'ftcmd' : 'login',
 			'username' : username,
 			'password' : password
 		}, function(result) {
-			console.log(result);
+			// console.log(result);
 			var status = parseStatus(result);
-			console.log(status);
+			// console.log(status);
 			if (status.ok)
 				found(status);
 			else
@@ -101,7 +101,7 @@ function CatalogManager(url) {
 	 * Select row
 	 */
 	this.selectRow = function(tablename, selwhere, selwhat, nextStep) {
-		console.log("selectrow");
+		// console.log("selectrow");
 		$.get(this.url, {
 			'ftcmd' : 'selectrow(s)',
 			'tablename' : tablename,
@@ -110,19 +110,39 @@ function CatalogManager(url) {
 		}, function(answer) {
 			nextStep(parseStatus(answer));
 		});
-	}
+	};
 
 	/**
-	 * Check if a row in the given table exists
+	 * Check if a row in the given table exists Also return the id of the first
+	 * found row
 	 */
 	this.checkExist = function(tablename, selwhere, found, notFound) {
 		this.selectRow(tablename, selwhere, '*', function(status) {
-			if (status.ok)
+			if (status.ok) {
+
+				// special logic to retrieve the id of the found row
+				// console.log(status.answer)
+				// var m =
+				// /.*<!--wrapper:<ft(\d+):-->.*?<td><ft\1b\/>(\d+)<ft\1e\/><\/td>/m.exec(status.answer);
+				var m = /<!--wrapper:<ft(\d+):-->/.exec(status.answer);
+				if (m) {
+					// console.log(m);
+					var rs = "<td><ft" + m[1] + "b\/>(\\d+)<ft" + m[1]
+							+ "e\/><\/td>";
+					// console.log(rs);
+					re = new RegExp(rs);
+					m = re.exec(status.answer);
+					if (m) {
+						status.id = m[1];
+						console.log("found id=" + status.id);
+					}
+				}
+
 				found(status);
-			else
+			} else
 				notFound(status);
 		});
-	}
+	};
 
 	/**
 	 * Generic Catalog Manager command interface
