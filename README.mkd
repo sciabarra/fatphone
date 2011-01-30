@@ -12,11 +12,10 @@ You need, of course, Fatwire Content Server (I used the JumpStart 7.0.2 and 7.5.
 
 # Deploy
 
+NOTE: be careful that *.jspf under /fp are NOT considered as JSP files but simple text files.
+
 1. Create a new site in FatWire (es. FatPhone) and enable Page, Template, SiteEntry and CSElement
 2. Copy all the content of folder fp as static content and be sure that it is accessible as  http://yoursite/fp/
-
-NOTE: be careful that *.jsp under /fp are NOT considered as JSP files but simple text files
-
 3. Call http://yoursite/fp/install.html, specify the correct credentials, click on Login, then Install all Elements then Install all Assets
 
 
