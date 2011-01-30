@@ -2,6 +2,6 @@
  "AssetType": "SiteEntry",
  "name": "fpIndex",
  "description": "FatPhone Index",
- "pagename": "fpIndex",
+ "pagename": "isite/iLayout",
  "cs_wrapper": "y"
 }

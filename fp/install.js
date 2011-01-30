@@ -91,33 +91,23 @@ function postAsset(action, data, nextStep) {
 		if (m) {
 			// update element with the tid
 
-			if ("rootelement" in data)
+			if ("rootelement" in data) {
 				cm.editRow("ElementCatalog", {
 					"elementname" : data.rootelement,
 					"resdetails1" : //
 					(data.AssetType == "Template" ? "tid=" : "eid=") + m[1]
-				}, nextStep)
-
-			nextStep(result);
+				}, function() {
+					nextStep(result);
+				});
+			} else {
+				nextStep(result);
+			}
 		} else {
 			nextStep("save failed!")
 		}
 		nextStep(result);
 	})
 }
-
-// install an asset
-/*
- * function installAsset(type, name, nextStep) { elementName = name; jsonFile =
- * type + "/" + name + ".json";
- * 
- * var where = "name='" + name + "'"; cm.checkExist(type, where, // found?
- * function(result) { $.getJSON(jsonFile, function(data) { // propagate id
- * collected when searched the asset data.id = result.id; postAsset("update",
- * data, nextStep); }) }, // not found? function() { alert("not found")
- * $.getJSON(jsonFile, function(data) { postAsset("addrow", data, nextStep) })
- * }); }
- */
 
 function installAsset(type, name, nextStep) {
 	jsonFile = type + "/" + name + ".json";
@@ -128,13 +118,13 @@ function installAsset(type, name, nextStep) {
 			var where = "name='" + name + "'";
 		cm.checkExist(type, where, // found?
 		function(result) {
-			//alert("found");
+			// alert("found");
 			// propagate id collected when searched the asset
 			data.id = result.id;
 			postAsset("update", data, nextStep);
 		}, // not found?
-		function() {
-			//alert("not found")
+		function(result) {
+			// alert("not found")
 			$.getJSON(jsonFile, function(data) {
 				postAsset("addrow", data, nextStep)
 			})
