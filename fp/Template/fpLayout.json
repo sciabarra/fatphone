@@ -1,6 +1,6 @@
 {
  "AssetType": "Template",
- "name": "/fpLayout",
+ "name": "fpLayout",
  "description": "FatPhone Layout",
  "rootelement": "/fpLayout",
  "category": "page",

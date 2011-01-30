@@ -19,6 +19,31 @@ OUTPUT
 --%>
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
+<asset:load name="currentAsset" 
+  type="<%=ics.GetVar("c") %>"
+  objectid="<%=ics.GetVar("cid") %>"/>
+<asset:get name="currentAsset" field="name" output="title"/>
+<% if(ics.GetVar("title").startsWith("fp"))
+	 ics.SetVar("title", ics.GetVar("title").substring(2));
+ //TODO split camel case in separate words
+%>
+<body>
+<div id="topbar">
+  <div id="title"><%=ics.GetVar("title") %></div>
+</div>
+<render:calltemplate 
+  site="<%=ics.GetVar("site")%>"
+  tid="<%=ics.GetVar("tid")%>" 
+  c="<%=ics.GetVar("c")%>" 
+  cid="<%=ics.GetVar("cid")%>"
+  tname="fpContent" 
+  slotname="fpContent">
+	 <render:argument name="p" 
+	   value="<%= ics.GetVar("p") %>"/>
+</render:calltemplate>
 
-
+<div id="footer"><!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
+Powered by <a class="noeffect" href="http://iwebkit.net">iWebKit</a>
+&amp; <a class="noeffect" href="http://www.sciabarra.com/fatwire/fatphone">FatPhone</a></div>
+</body>
 </cs:ftcs>

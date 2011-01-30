@@ -19,6 +19,33 @@ OUTPUT
 --%>
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
-
-
+<asset:load 
+	type="<%= ics.GetVar("c") %>"
+	objectid="<%= ics.GetVar("cid") %>" 
+	name="Asset"/>
+<asset:get name="Asset" 
+	field="description" 
+	output="description"/>
+<asset:get name="Asset" 
+	field="filename" 
+	output="filename"/>
+<render:gettemplateurl   
+ 	tid='<%=ics.GetVar("tid")%>' 
+ 	site='<%=ics.GetVar("site")%>'
+ 	c="<%= ics.GetVar("c") %>" 
+ 	cid="<%= ics.GetVar("cid") %>" 
+ 	slotname="fpLayout" 
+ 	tname="/fpLayout" 
+ 	outstr="url">
+ 	 <render:argument name="p" value="<%=ics.GetVar("c") %>"/>
+</render:gettemplateurl>
+<li class="menu">
+<%if(ics.GetVar("filename")!=null) { %>
+<img src="/fp/Framework/thumbs/<%=ics.GetVar("filename")%>">
+<% } %>
+<a href="<%=ics.GetVar("url")%>">
+<span class="name"><%=ics.GetVar("description")%></span>
+<span class="arrow"/>
+</a>
+</li>
 </cs:ftcs>
