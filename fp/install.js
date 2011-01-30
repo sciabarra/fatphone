@@ -1,6 +1,7 @@
 // Disable caching of AJAX responses
 $.ajaxSetup({
-	cache : false
+	cache : false,
+	async: false
 });
 
 // catalog manager
