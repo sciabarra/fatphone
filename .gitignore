@@ -1,6 +1,7 @@
 .project
 .settings
 .classpath
+FatPhone.i*
 fp/WEB-INF/*
 fp/.cside/*
 .DS_Store
