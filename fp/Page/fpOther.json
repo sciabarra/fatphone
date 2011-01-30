@@ -1,7 +1,8 @@
 {
  "AssetType": "Page",
  "publication": "FatPhone",
- "name": "fpHome",
- "description": "FatPhone HomePage",
+ "name": "fpOther",
+ "description": "Other...",
+ "filename": "other.png",
  "template": "/fpLayout"
 }

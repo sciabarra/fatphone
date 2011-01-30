@@ -1,0 +1,8 @@
+{
+ "AssetType": "Page",
+ "publication": "FatPhone",
+ "name": "fpStore",
+ "description": "Buy some music",
+ "filename": "itunes.png",
+ "template": "/fpLayout"
+}

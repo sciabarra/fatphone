@@ -1,0 +1,8 @@
+{
+ "AssetType": "Page",
+ "publication": "FatPhone",
+ "name": "fpMusic",
+ "description": "Play some music",
+ "filename": "music.png",
+ "template": "/fpLayout"
+}
