@@ -41,7 +41,6 @@ OUTPUT
 	 <render:argument name="p" 
 	   value="<%= ics.GetVar("p") %>"/>
 </render:calltemplate>
-
 <div id="footer"><!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
 Powered by <a class="noeffect" href="http://iwebkit.net">iWebKit</a>
 &amp; <a class="noeffect" href="http://www.sciabarra.com/fatwire/fatphone">FatPhone</a></div>

@@ -1,34 +1,44 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>FatPhone Setup</title>
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta
+	content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=no"
+	name="viewport" />
+<link href="Framework/css/style.css" rel="stylesheet" media="screen"
+	type="text/css" />
+<script src="Framework/javascript/functions.js" type="text/javascript"></script>
+<title>FatPhone Installer</title>
 </head>
 <body>
 
-<h1>FatPhone Setup</h1>
+<div id="topbar">
+<div id="title">FatPhone Setup</div>
+</div>
 
 <form>
 <table>
 	<tr>
-		<td>ContentServer Prefix</td>
+		<td align="right">ContentServer:</td>
 		<td><input id="url" type="text" size="40"
 			value="http://localhost:8080/cs/"></td>
 	</tr>
 	<tr>
-		<td>Username</td>
+		<td align="right">Username:</td>
 		<td><input id="user" type="text" value="fwadmin"></td>
 	</tr>
 	<tr>
-		<td>Password</td>
+		<td align="right">Password:</td>
 		<td><input id="pass" type="password" value="xceladmin"></td>
 	</tr>
 	<tr>
-		<td>Site</td>
+		<td align="right">Site:</td>
 		<td><input id="pub" type="text" value="FatPhone"></td>
 	</tr>
 	<tr>
-		<td align="right"><input id="login" type="button" value="Login"></td>
-		<td align="left"></td>
-	</tr>
+		<td colspan="2" align="center"><input id="login" type="button"
+			value="Login"></td>
 </table>
 </form>
 <pre id="message"></pre>
@@ -89,6 +99,11 @@
 		<tr>
 			<td><input type="checkbox"></td>
 			<td>Template:Page/fpBody</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:Page/fpContent</td>
 			<td></td>
 		</tr>
 		<tr>

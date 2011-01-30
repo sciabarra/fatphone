@@ -20,11 +20,20 @@ OUTPUT
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
 <div id="content">
-  <asset:children  
-	name="asset" 
-	list="Children" 
-	code="-" 
-	order="nrank"/>
+	<asset:load 
+		name="Asset"
+		type="<%= ics.GetVar("c") %>"
+		objectid="<%= ics.GetVar("cid") %>"/>
+	<asset:getsitenode 
+		name="Asset" 
+		output="nodeId" />
+   <siteplan:load 
+       name="Node" 
+       nodeid='<%=ics.GetVar("nodeId")%>' />
+   <siteplan:children 
+      name="Node" 
+      list="Children" 
+      order="nrank" />
   <ul class="pageitem">
 	<ics:listloop listname="Children">
 		<ics:listget fieldname="otype" listname="Children" output="otype"/>

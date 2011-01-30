@@ -40,12 +40,12 @@ OUTPUT
  	 <render:argument name="p" value="<%=ics.GetVar("c") %>"/>
 </render:gettemplateurl>
 <li class="menu">
+<a href="<%=ics.GetVar("url")%>">
 <%if(ics.GetVar("filename")!=null) { %>
 <img src="/fp/Framework/thumbs/<%=ics.GetVar("filename")%>">
 <% } %>
-<a href="<%=ics.GetVar("url")%>">
 <span class="name"><%=ics.GetVar("description")%></span>
-<span class="arrow"/>
 </a>
+<span class="arrow"/>
 </li>
 </cs:ftcs>
