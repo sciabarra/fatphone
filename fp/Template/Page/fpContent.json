@@ -1,0 +1,8 @@
+{
+ "AssetType": "Template",
+ "name": "fpContent",
+ "description": "FatPhone Page Content",
+ "subtype": "Page",
+ "rootelement": "Page/fpContent",
+ "ttype": "b"
+}

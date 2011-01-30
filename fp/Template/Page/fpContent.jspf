@@ -1,0 +1,44 @@
+<%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
+%><%@ taglib prefix="asset" uri="futuretense_cs/asset.tld"
+%><%@ taglib prefix="assetset" uri="futuretense_cs/assetset.tld"
+%><%@ taglib prefix="commercecontext" uri="futuretense_cs/commercecontext.tld"
+%><%@ taglib prefix="ics" uri="futuretense_cs/ics.tld"
+%><%@ taglib prefix="listobject" uri="futuretense_cs/listobject.tld"
+%><%@ taglib prefix="render" uri="futuretense_cs/render.tld"
+%><%@ taglib prefix="siteplan" uri="futuretense_cs/siteplan.tld"
+%><%@ taglib prefix="searchstate" uri="futuretense_cs/searchstate.tld"
+%><%@ page import="COM.FutureTense.Interfaces.*,
+                   COM.FutureTense.Util.ftMessage,
+                   COM.FutureTense.Util.ftErrors"
+%><cs:ftcs><%-- Page/fpBody
+
+INPUT
+
+OUTPUT
+
+--%>
+<%-- Record dependencies for the Template --%>
+<ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
+<div id="content">
+  <asset:children  
+	name="asset" 
+	list="Children" 
+	code="-" 
+	order="nrank"/>
+  <ul class="pageitem">
+	<ics:listloop listname="Children">
+		<ics:listget fieldname="otype" listname="Children" output="otype"/>
+		<ics:listget fieldname="oid" listname="Children" output="oid"/>
+		<render:calltemplate 
+			site="<%= ics.GetVar("site") %>" 
+			tid="<%= ics.GetVar("tid") %>" 
+			c="<%= ics.GetVar("otype") %>"
+			cid="<%= ics.GetVar("oid") %>"
+			slotname="fpItem"
+			tname="fpItem">
+				<render:argument name="p" value="<%= ics.GetVar("cid") %>"/>
+		</render:calltemplate>	
+	</ics:listloop>
+  </ul>
+</div>
+</cs:ftcs>
