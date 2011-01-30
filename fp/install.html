@@ -1,0 +1,122 @@
+<html>
+<head>
+<title>FatPhone Setup</title>
+</head>
+<body>
+
+<h1>FatPhone Setup</h1>
+
+<form>
+<table>
+	<tr>
+		<td>ContentServer Prefix</td>
+		<td><input id="url" type="text" size="40"
+			value="http://localhost:8080/cs/"></td>
+	</tr>
+	<tr>
+		<td>Username</td>
+		<td><input id="user" type="text" value="fwadmin"></td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td><input id="pass" type="password" value="xceladmin"></td>
+	</tr>
+	<tr>
+		<td>Site</td>
+		<td><input id="pub" type="text" value="FatPhone"></td>
+	</tr>
+	<tr>
+		<td align="right"><input id="login" type="button" value="Login"></td>
+		<td align="left"></td>
+	</tr>
+</table>
+</form>
+<pre id="message"></pre>
+<form>
+<table id="elementTable" border="0" cellspacing="2" cellpadding="2">
+	<thead>
+		<th colspan="2" align="center">Elements</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:/fpLayout</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:Page/fpBody</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:Page/fpItem</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>CSElement:fpIndex</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input id="allElements" type="button" value="All"></td>
+			<td colspan="2"><input id="installElements" type="button"
+				disabled value="Install Elements"></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<br>
+
+<form>
+<table id="assetTable" "border="0" cellspacing="2" cellpadding="2">
+	<thead>
+		<th colspan="2" align="center">Assets</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:/fpLayout</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:Page/fpBody</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Template:Page/fpItem</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>CSElement:fpIndex</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>SiteEntry:fpIndex</td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td><input type="checkbox"></td>
+			<td>Page:fpHome</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><input type="button" id="allAssets" value="All"></td>
+			<td colspan="2"><input id="installAssets" type="button" 
+				value="Install Assets"></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+</body>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="catalogmanager.js"></script>
+<script type="text/javascript" src="install.js"></script>
+</html>

@@ -1,0 +1,7 @@
+{
+ "AssetType": "SiteEntry",
+ "name": "fpIndex",
+ "description": "FatPhone Index",
+ "pagename": "fpIndex",
+ "cs_wrapper": "y"
+}
