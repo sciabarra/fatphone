@@ -68,13 +68,11 @@
 			<td>Template:Page/fpItem</td>
 			<td></td>
 		</tr>
-		<!--  
 		<tr>
 			<td><input type="checkbox"></td>
 			<td>CSElement:fpIndex</td>
 			<td></td>
 		</tr>
-		-->
 		<tr>
 			<td><input id="allElements" type="button" value="All"></td>
 			<td colspan="2"><input id="installElements" type="button"
@@ -111,12 +109,12 @@
 			<td>Template:Page/fpItem</td>
 			<td></td>
 		</tr>
-		<!-- commented out, for now  
 		<tr>
 			<td><input type="checkbox"></td>
 			<td>CSElement:fpIndex</td>
 			<td></td>
 		</tr>
+		<!-- commented out, for now 
 		<tr>
 			<td><input type="checkbox"></td>
 			<td>SiteEntry:fpIndex</td>
@@ -155,13 +153,21 @@
 		</tr>
 		<tr>
 			<td><input type="button" id="allAssets" value="All"></td>
-			<td colspan="2"><input id="installAssets" type="button"
+			<td colspan="2"><input id="installAssets" type="button" disabled
 				value="Install Assets"></td>
 		</tr>
 	</tbody>
 </table>
-</form>
 
+<table>
+
+	<tr>
+	    <td>Root Entry</td>
+		<td><input disabled id="installEntries" type="button"
+			value="Install Entry" /></td>
+	</tr>
+</table>
+</form>
 </body>
 
 <script type="text/javascript" src="jquery.min.js"></script>

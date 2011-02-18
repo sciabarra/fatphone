@@ -1,7 +1,7 @@
 // Disable caching of AJAX responses
 $.ajaxSetup({
 	cache : false,
-	async: false
+	async : false
 });
 
 // catalog manager
@@ -21,6 +21,22 @@ function msg(message) {
 	// if("answer" in message)
 	// message = message.answer;
 	$("#message").html($("#message").html() + "\n" + message)
+}
+
+// install a site catalog
+function installEntry(pagename, localFile, nextStep) {
+	cm.checkExist("SiteCatalog", "pagename='" + pagename + "'",
+	// found?
+	function(status) {
+		$.getJSON(localFile, function(data) {
+			cm.editRow("SiteCatalog", data, nextStep);
+		});
+	}, // not found
+	function(status) {
+		$.getJSON(localFile, function(data) {
+			cm.addRow("SiteCatalog", data, nextStep);
+		});
+	});
 }
 
 // install an element asset
@@ -60,7 +76,7 @@ function installElement(type, elementName, nextStep) {
 		})
 	}, // not found?
 	function(status) {
-		("not found");
+		console.log("not found");
 		$.get(localFile, function(fileBody) {
 			// alert("addrow")
 			cm.addRow("ElementCatalog", {
@@ -68,7 +84,7 @@ function installElement(type, elementName, nextStep) {
 				url : fileBody,
 				url_file : remoteFileName,
 				url_folder : remoteFileFolder
-			}, nextStep)
+			}, nextStep);
 		})
 	});
 }
@@ -154,9 +170,7 @@ function installAssets() {
 
 // elements installer
 function installElements() {
-
 	$("table#elementTable tr").each(function(node) {
-
 		var cells = $(this).children();
 		var isChecked = $(cells[0]).children("input").is(":checked");
 		var match = /(.*):(.*)/.exec($(cells[1]).text());
@@ -175,6 +189,13 @@ function installElements() {
 			out.html("...skipped")
 	});
 	$("#installAssets").attr("disabled", false)
+	$("#installEntries").attr("disabled", false)
+}
+
+function installEntries() {
+	installEntry("FatPhone", "FatPhone.json", function(status) {
+		alert(status.result);
+	});
 }
 
 function toggleAll(where) {
@@ -211,6 +232,7 @@ $(function() {
 	$("#login").click(login);
 	$("#installElements").click(installElements);
 	$("#installAssets").click(installAssets);
+	$("#installEntries").click(installEntries);
 	$("#allElements").click(function() {
 		toggleAll("#elementTable")
 	});
