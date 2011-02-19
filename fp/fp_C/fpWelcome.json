@@ -1,0 +1,10 @@
+{
+ "publication": "FatPhone",
+ "_ASSET_": "fp_C",
+ "_ITEMNAME_": "fpWelcome",
+ "_TYPE_": "fpMultiText",
+ "fpTitle": "Welcome",
+ "fpText": "Welcome to FatPhone",
+ "fpTitle2": "Credits",
+ "fpText2": "FatPhone is based on <a href='http://iwebkit.mobi'>iWebKit</a>"
+}

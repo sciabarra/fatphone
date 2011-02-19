@@ -1,0 +1,10 @@
+{
+ "AssetType": "Template",
+ "name": "fpItem",
+ "description": "FatPhone Content Item",
+ "rootelement": "fp_C/fpItem",
+ "subtype": "fp_C",
+ "ttype": "b",
+ "category": "nav"
+}
+

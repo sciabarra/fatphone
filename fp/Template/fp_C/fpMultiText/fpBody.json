@@ -1,0 +1,9 @@
+{
+ "AssetType": "Template",
+ "name": "fpMultiText/fpBody",
+ "description": "FatPhone MultiText Content Body",
+ "rootelement": "fp_C/fpMultiText/fpBody",
+ "subtype": "fp_C",
+ "ttype": "b",
+ "category": "sub"
+}

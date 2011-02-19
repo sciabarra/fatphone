@@ -1,0 +1,13 @@
+{
+ "publication": "FatPhone",
+ "_ASSET_": "fp_C",
+ "_ITEMNAME_": "fpAbout",
+ "_TYPE_": "fpMultiText",
+ "fpTitle": "About",
+ "fpText": "FatPhone is an open source iPhone website for FatWire ContentServer.",
+ "fpTitle2": "Authors",
+ "fpText2": "Michele Sciabarr&agrave; &amp; Mirella Di Girolamo",
+ "fpTitle3": "Copyright",
+ "fpText3": "&copy; 2011 Sciabarra srl"
+}
+
