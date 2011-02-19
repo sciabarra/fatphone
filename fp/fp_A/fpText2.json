@@ -1,0 +1,8 @@
+{
+ "AssetType": "fp_A",
+ "publication": "FatPhone",
+ "name": "fpText2",
+ "description": "Text 2",
+ "type": "text",
+ "attributetype": "fpFckEditor"
+}

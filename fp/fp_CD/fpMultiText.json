@@ -1,0 +1,9 @@
+{
+ "AssetType": "fp_CD",
+ "publication": "FatPhone",
+ "internalname": "fpMultiText",
+ "internaldescription": "FatPhone Text",
+ "RequiredAttrList": "fpTitle;fpText",
+ "OptionalAttrList": "fpTitle2;fpText2;fpTitle3;fpText3;fpTitle4;fpText4"
+}
+

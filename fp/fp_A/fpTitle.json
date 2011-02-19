@@ -1,0 +1,7 @@
+{
+ "AssetType": "fp_A",
+ "publication": "FatPhone",
+ "name": "fpTitle",
+ "description": "Title",
+ "type": "string"
+}

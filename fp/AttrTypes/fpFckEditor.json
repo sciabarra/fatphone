@@ -1,0 +1,6 @@
+{
+ "AssetType": "AttrTypes",
+ "name": "fpFckEditor",
+ "description": "FatPhone FckEditor", 
+ "attach": ["urlxml", "fpFckEditor.txt"]
+}
