@@ -1,3 +1,24 @@
+/*
+Copyright (C) 2011 by Michele Sciabarra'
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 // Disable caching of AJAX responses
 $.ajaxSetup({
 	cache : false,
@@ -65,7 +86,7 @@ function installElement(type, elementName, nextStep) {
 
 	cm.checkExist("ElementCatalog", "elementname='" + elementName + "'", // found?
 	function(status) {
-		console.log("found");
+		// console.log("found");
 		$.get(localFile, function(fileBody) {
 			cm.editRow("ElementCatalog", {
 				elementname : elementName,
@@ -98,7 +119,7 @@ function postAsset(action, data, nextStep) {
 	// specify the action
 	data.Action = action;
 
-	console.log(data);
+	// console.log(data);
 
 	// delete the asset then post to the remote url entry point
 	$.post(postUrl(), data, function(result) {
@@ -106,44 +127,76 @@ function postAsset(action, data, nextStep) {
 		// msg(result)
 		var m = /^Success:.*, ([0-9]+) saved\.$/.exec(result);
 		if (m) {
+			console.log(m[1]);
 			// update element with the tid
-
 			if ("rootelement" in data) {
 				cm.editRow("ElementCatalog", {
 					"elementname" : data.rootelement,
 					"resdetails1" : //
 					(data.AssetType == "Template" ? "tid=" : "eid=") + m[1]
 				}, function() {
-					nextStep(result);
+					nextStep(result, m[1]);
 				});
 			} else {
-				nextStep(result);
+				nextStep(result, m[1]);
 			}
 		} else {
-			nextStep("save failed!")
+			nextStep(result)
 		}
-		nextStep(result);
+		// nextStep(result);
 	})
 }
 
 function installAsset(type, name, nextStep) {
 	jsonFile = type + "/" + name + ".json";
+	var mytype = type;
+	var myname = name;
+	var oldNextStep = nextStep;
 	$.getJSON(jsonFile, function(data) {
 		if ("rootelement" in data)
 			var where = "rootelement='" + data.rootelement + "'";
 		else
-			var where = "name='" + name + "'";
+			var where = "name='" + myname + "'";
+
+		// handle attachments to assets
+		var newNextStep = oldNextStep;
+		if ("attach" in data) {
+			var field = data.attach[0];
+			var localFile = data.attach[1];
+			var name = data.name;
+			// console.log("found attaching " + field + " " + file);
+			newNextStep = function(status, id) {
+				console.log("loading " + field + "=" + localFile);
+				$.get(mytype + "/" + localFile, function(fileBody) {
+					// alert("addrow")
+					var mydata = {};
+					mydata[field] = fileBody;
+					mydata[field + "_file"] = localFile;
+					mydata[field + "_folder"] = type;
+					mydata['id'] = id; // assuming that the id is propagated in
+										// postAsset...
+					console.log(oldNextStep);
+					cm.editRow(type, mydata, function(status) {
+						// console.log(status);
+						oldNextStep(status.answer);
+					});
+
+				})
+			};
+			delete data['attach'];
+		}
+
 		cm.checkExist(type, where, // found?
 		function(result) {
-			// alert("found");
+			// console.log("found");
 			// propagate id collected when searched the asset
 			data.id = result.id;
-			postAsset("update", data, nextStep);
+			postAsset("update", data, newNextStep);
 		}, // not found?
 		function(result) {
-			// alert("not found")
+			// console.log("not found")
 			$.getJSON(jsonFile, function(data) {
-				postAsset("addrow", data, nextStep)
+				postAsset("addrow", data, newNextStep)
 			})
 		});
 	})
@@ -157,10 +210,29 @@ function installAssets() {
 		var isChecked = $(cells[0]).children("input").is(":checked");
 		var match = /(.*):(.*)/.exec($(cells[1]).text());
 		var out = $(cells[2]);
-
-		if (isChecked)
+		// console.log(":::"+match[1]+":"+match[2]);
+		if (match && isChecked)
 			installAsset(match[1], match[2], function(result) {
-				console.log(status)
+				console.log("status:" + result)
+				out.html(result)
+			})
+		else
+			out.html("...skipped")
+	});
+}
+
+//assets installer
+function installSamples() {
+	$("table#sampleTable tr").each(function(node) {
+
+		var cells = $(this).children();
+		var isChecked = $(cells[0]).children("input").is(":checked");
+		var match = /(.*):(.*)/.exec($(cells[1]).text());
+		var out = $(cells[2]);
+		// console.log(":::"+match[1]+":"+match[2]);
+		if (match && isChecked)
+			installAsset(match[1], match[2], function(result) {
+				console.log("status:" + result)
 				out.html(result)
 			})
 		else
@@ -171,6 +243,7 @@ function installAssets() {
 // elements installer
 function installElements() {
 	$("table#elementTable tr").each(function(node) {
+
 		var cells = $(this).children();
 		var isChecked = $(cells[0]).children("input").is(":checked");
 		var match = /(.*):(.*)/.exec($(cells[1]).text());
@@ -182,26 +255,25 @@ function installElements() {
 		// out.html("nosel");
 		if (isChecked)
 			installElement(match[1], match[2], function(status) {
-				console.log(status)
+				console.log("status2:" + status)
 				out.html(status.result)
 			})
 		else
 			out.html("...skipped")
 	});
-	$("#installAssets").attr("disabled", false)
-	$("#installEntries").attr("disabled", false)
+
 }
 
 function installEntries() {
 	installEntry("FatPhone", "FatPhone.json", function(status) {
-		alert(status.result);
+		$('#installEntryResult').text(status.result)
 	});
 }
 
 function toggleAll(where) {
 	console.log($("table" + where).find(":checkbox"));
 	$("table" + where).find(":checkbox").each(function(node) {
-		console.log(this);
+		// console.log(this);
 		$(this).attr("checked", !$(this).is(":checked"));
 	});
 }
@@ -214,12 +286,17 @@ function login() {
 	// msg("creato cm")
 	cm.login($('#user').val(), $('#pass').val(), // found:
 	function(result) {
+		
 		msg("Connection Parameters are ok.");
 		$("#login").attr("disabled", true);
 		$("#url").attr("disabled", true);
 		$("#user").attr("disabled", true);
 		$("#pass").attr("disabled", true);
+
 		$("#installElements").attr("disabled", false)
+		$("#installAssets").attr("disabled", false)
+		$("#installEntries").attr("disabled", false)
+		$("#installSamples").attr("disabled", false)
 		msg(result.answer);
 	}, // not found:
 	function(result) {
@@ -230,13 +307,20 @@ function login() {
 
 $(function() {
 	$("#login").click(login);
+	
 	$("#installElements").click(installElements);
+	
 	$("#installAssets").click(installAssets);
 	$("#installEntries").click(installEntries);
+	$("#installSamples").click(installSamples);
+	
 	$("#allElements").click(function() {
 		toggleAll("#elementTable")
 	});
 	$("#allAssets").click(function() {
 		toggleAll("#assetTable")
+	});
+	$("#allSamples").click(function() {
+		toggleAll("#sampleTable")
 	});
 })

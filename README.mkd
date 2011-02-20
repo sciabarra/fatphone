@@ -1,22 +1,63 @@
-# FatPhone 
-
+## FatPhone v0.2 
+ 
 More information [here](http://www.sciabarra.com/fatwire/fatphone)
 
-FatPhone is an Open Source iPhone web site for Fatwire.
+FatPhone is an Open Source iPhone web site for Fatwire Content Server.
 
 Please check  our blog http://www.sciabarra.com/fatwire for more information.
 
-# Prequisites
+# Prerequisites
 
-You need, of course, Fatwire Content Server (I used the JumpStart 7.0.2 and 7.5.2)
+You need, of course, Fatwire Content Server (I tested against the JumpStart 7.5.2)
 
-# Deploy
+* Create a new site in FatWire named  *FatPhone* (mandatory)
 
-NOTE: be careful that *.jspf under /fp are NOT considered as JSP files but simple text files.
+* Create a new flex family in FatWire named *FatPhone* with:
 
-1. Create a new site in FatWire (es. FatPhone) and enable Page, Template, SiteEntry and CSElement
-2. Copy all the content of folder fp as static content and be sure that it is accessible as  http://yoursite/fp/
-3. Call http://yoursite/fp/install.html, specify the correct credentials, click on Login, then Install all Elements then Install all Assets
+<table>
+  <tr><th>Attribute</th><td>fp_A</td></tr>
+  <tr><th>Content Definition</th><td>fp_CD</td></tr>
+  <tr><th>Parent Definition</th><td>fp_PD</td></tr>
+  <tr><th>Content</th><td>fp_C</td></tr>
+  <tr><th>Parent</th><td>fp_P</td></tr>
+  <tr><th>Filter</th><td>fp_F</td></tr>
+</table>
 
+* Enable for the site:
+  - Page
+  - Template
+  - CSElement
+  - AttrTypes
+  - fp_A
+  - fp_CD
+  - fp_PC
+  - fp_C
+  - fp_P
 
-Finally, you can place pages and create your hierarchy
+# Deployment
+
+NOTE: be careful that your application server  do NOT interpret *.jspf under /fp as JSP files but as simple text files.
+
+* Copy all the content of folder fp as static content and be sure that it is accessible as  http://yoursite/fp/
+
+If you have apache, put fp in the root folder of your apache installation.
+If you have just tomcat, put fp under the ROOT folder of your tomcat webapps directory.
+If you have something else... well your mileage may vary.
+
+* Call http://yoursite/fp/install.html, then 
+
+  * specify the correct access credentials, then click "Login"
+  * click on "All Elements" then "Install Elements" 
+  * click on "All Assets" then "Install Assets"
+  * optionally click on "All Samples" then "Install Samples"
+ 
+# Final Notes
+
+The installer install only the assets and optionally some sample content. 
+You have now to create the site plan:
+ * create and organize pages as a hierarchy
+ * create and place content (fp_C assets with subtype fpMultiText, currently) as children of pages, to reach them with the navigation
+
+There is now a shortcut to easily open the home page. 
+Selecting http://yoursite/fp/index.html  (or just /fp if index.html is the default index) it will redirect and load the page fpHome.
+The home page will be blank however unless you place content as children and organize the siteplan

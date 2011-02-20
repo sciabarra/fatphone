@@ -1,4 +1,25 @@
-<%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
+<%--
+Copyright (C) 2011 by Michele Sciabarra'
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+ 
+--%><%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
 %><%@ taglib prefix="asset" uri="futuretense_cs/asset.tld"
 %><%@ taglib prefix="assetset" uri="futuretense_cs/assetset.tld"
 %><%@ taglib prefix="commercecontext" uri="futuretense_cs/commercecontext.tld"
@@ -31,16 +52,72 @@ OUTPUT
 <div id="topbar">
   <div id="title"><%=ics.GetVar("title") %></div>
 </div>
-<render:calltemplate 
-  site="<%=ics.GetVar("site")%>"
-  tid="<%=ics.GetVar("tid")%>" 
-  c="<%=ics.GetVar("c")%>" 
-  cid="<%=ics.GetVar("cid")%>"
-  tname="fpContent" 
-  slotname="fpContent">
-	 <render:argument name="p" 
-	   value="<%= ics.GetVar("p") %>"/>
-</render:calltemplate>
+<div id="content">
+<assetset:setasset name="myAssetSet" 
+        type='<%=ics.GetVar("c") %>' 
+        id='<%= ics.GetVar("cid") %>'/>
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle"
+        listvarname="Title" 
+        typename="fp_A" />
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText"
+        listvarname="Text" 
+        typename="fp_A" />
+<% if(ics.GetList("Title")!=null&&ics.GetList("Title").hasData()) { %>
+<span class="graytitle"><%=ics.GetList("Title").getValue("value")%></span>
+<% } if(ics.GetList("Text")!=null&&ics.GetList("Text").hasData()) { %>
+<ul class="pageitem">
+ <li class="textbox"><p><%=ics.GetList("Text").getValue("value")%></p></li>
+</ul> 
+<% } %>        
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle2"
+        listvarname="Title2" 
+        typename="fp_A" />
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText2"
+        listvarname="Text2" 
+        typename="fp_A" />
+<% if(ics.GetList("Title2")!=null&&ics.GetList("Title2").hasData()) { %>
+<span class="graytitle"><%=ics.GetList("Title2").getValue("value")%></span>
+<% } if(ics.GetList("Text2")!=null&&ics.GetList("Text2").hasData()) { %>
+<ul class="pageitem">
+ <li class="textbox"><p><%=ics.GetList("Text2").getValue("value")%></p></li>
+</ul>        
+<% } %>              
+
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle3"
+        listvarname="Title3" 
+        typename="fp_A" />
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText3"
+        listvarname="Text3" 
+        typename="fp_A" />
+<% if(ics.GetList("Title3")!=null&&ics.GetList("Title3").hasData()) { %>
+<span class="graytitle"><%=ics.GetList("Title3").getValue("value")%></span>
+<% } if(ics.GetList("Text3")!=null&&ics.GetList("Text3").hasData()) { %>
+<ul class="pageitem">
+ <li class="textbox"><p><%=ics.GetList("Text3").getValue("value")%></p></li>
+</ul>        
+<% } %>              
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle4"
+        listvarname="Title4" 
+        typename="fp_A" />
+<assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText4"
+        listvarname="Text4" 
+        typename="fp_A" />
+<% if(ics.GetList("Title4")!=null&&ics.GetList("Title4").hasData()) { %>
+<span class="graytitle"><%=ics.GetList("Title4").getValue("value")%></span>
+<% } if(ics.GetList("Text4")!=null&&ics.GetList("Text4").hasData()) { %>
+<ul class="pageitem">
+  <li class="textbox"><p><%=ics.GetList("Text4").getValue("value")%></p></li>
+</ul>
+<% } %>              
+</div>
 <div id="footer"><!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
 Powered by <a class="noeffect" href="http://iwebkit.net">iWebKit</a>
 &amp; <a class="noeffect" href="http://www.sciabarra.com/fatwire/fatphone">FatPhone</a></div>

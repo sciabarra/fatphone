@@ -4,5 +4,6 @@
  "description": "FatPhone Layout",
  "rootelement": "/fpLayout",
  "category": "page",
- "ttype": "x"
+ "ttype": "x",
+ "category": "page"
 }

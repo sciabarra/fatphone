@@ -1,4 +1,25 @@
-<%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
+<%--
+Copyright (C) 2011 by Michele Sciabarra'
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+ 
+--%><%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
 %><%@ taglib prefix="asset" uri="futuretense_cs/asset.tld"
 %><%@ taglib prefix="assetset" uri="futuretense_cs/assetset.tld"
 %><%@ taglib prefix="commercecontext" uri="futuretense_cs/commercecontext.tld"
@@ -20,24 +41,40 @@ OUTPUT
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
 <div id="content">
-	<asset:load 
-		name="Asset"
+    <%-- load childer from the siteplan --%>
+	<asset:load name="Asset"
 		type="<%= ics.GetVar("c") %>"
 		objectid="<%= ics.GetVar("cid") %>"/>
-	<asset:getsitenode 
-		name="Asset" 
+	<asset:children name="Asset"
+	    list="Children"/>
+	<asset:getsitenode name="Asset" 
 		output="nodeId" />
-   <siteplan:load 
-       name="Node" 
+    <siteplan:load name="Node" 
        nodeid='<%=ics.GetVar("nodeId")%>' />
-   <siteplan:children 
-      name="Node" 
-      list="Children" 
+    <siteplan:children name="Node" 
+      list="SiteChildren" 
       order="nrank" />
-  <ul class="pageitem">
-	<ics:listloop listname="Children">
+      
+ <ul class="pageitem">
+   <ics:listloop listname="Children">
 		<ics:listget fieldname="otype" listname="Children" output="otype"/>
 		<ics:listget fieldname="oid" listname="Children" output="oid"/>
+		<%-- 
+		<li><%= ics.GetVar("otype") %> - <%= ics.GetVar("oid") %></li>
+		--%>
+		<render:calltemplate 
+			site="<%= ics.GetVar("site") %>" 
+			tid="<%= ics.GetVar("tid") %>" 
+			c="<%= ics.GetVar("otype") %>"
+			cid="<%= ics.GetVar("oid") %>"
+			slotname="fpItem"
+			tname="fpItem">
+				<render:argument name="p" value="<%= ics.GetVar("cid") %>"/>
+		</render:calltemplate>	
+	</ics:listloop>
+ 	<ics:listloop listname="SiteChildren">
+		<ics:listget fieldname="otype" listname="SiteChildren" output="otype"/>
+		<ics:listget fieldname="oid" listname="SiteChildren" output="oid"/>
 		<render:calltemplate 
 			site="<%= ics.GetVar("site") %>" 
 			tid="<%= ics.GetVar("tid") %>" 

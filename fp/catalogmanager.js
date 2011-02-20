@@ -1,3 +1,24 @@
+/*
+Copyright (C) 2011 by Michele Sciabarra'
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
 $.ajaxSetup({
 	// Disable caching of AJAX responses
 	cache : false
@@ -34,10 +55,10 @@ function CatalogManager(url) {
 	 */
 	function parseStatus(body) {
 
-		// console.log("parseStatusPre");
+		//console.log("parseStatusPre");
 		var m = /<!--FTCS\|\|\|result=(.*?)\|\|\|reason=(.*?)\|\|\|err=(-?\d+)\|\|\|command=(.*?)\|\|\|/m
 				.exec(body);
-		// console.log(m);
+		//console.log(m);
 
 		if (m)
 			return {

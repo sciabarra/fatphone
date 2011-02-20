@@ -3,6 +3,7 @@
  "_ASSET_": "fp_C",
  "_ITEMNAME_": "fpWelcome",
  "_TYPE_": "fpMultiText",
+ "description": "Welcome!",
  "fpTitle": "Welcome",
  "fpText": "Welcome to FatPhone",
  "fpTitle2": "Credits",

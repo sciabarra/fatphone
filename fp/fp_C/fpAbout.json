@@ -3,6 +3,8 @@
  "_ASSET_": "fp_C",
  "_ITEMNAME_": "fpAbout",
  "_TYPE_": "fpMultiText",
+ "description": "About",
+ "filename": "help.png",
  "fpTitle": "About",
  "fpText": "FatPhone is an open source iPhone website for FatWire ContentServer.",
  "fpTitle2": "Authors",

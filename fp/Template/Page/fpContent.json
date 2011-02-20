@@ -4,5 +4,6 @@
  "description": "FatPhone Page Content",
  "subtype": "Page",
  "rootelement": "Page/fpContent",
- "ttype": "b"
+ "ttype": "b",
+ "category": "sub"
 }

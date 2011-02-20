@@ -1,4 +1,25 @@
-<%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
+<%--
+Copyright (C) 2011 by Michele Sciabarra'
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+ 
+--%><%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"
 %><%@ taglib prefix="asset" uri="futuretense_cs/asset.tld"
 %><%@ taglib prefix="assetset" uri="futuretense_cs/assetset.tld"
 %><%@ taglib prefix="commercecontext" uri="futuretense_cs/commercecontext.tld"
@@ -19,33 +40,19 @@ OUTPUT
 --%>
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
-<asset:load 
+<asset:load name="Asset"
 	type="<%= ics.GetVar("c") %>"
-	objectid="<%= ics.GetVar("cid") %>" 
-	name="Asset"/>
-<asset:get name="Asset" 
-	field="description" 
-	output="description"/>
-<asset:get name="Asset" 
-	field="filename" 
-	output="filename"/>
-<render:gettemplateurl   
- 	tid='<%=ics.GetVar("tid")%>' 
- 	site='<%=ics.GetVar("site")%>'
- 	c="<%= ics.GetVar("c") %>" 
- 	cid="<%= ics.GetVar("cid") %>" 
- 	slotname="fpLayout" 
- 	tname="/fpLayout" 
- 	outstr="url">
- 	 <render:argument name="p" value="<%=ics.GetVar("c") %>"/>
-</render:gettemplateurl>
-<li class="menu">
-<a href="<%=ics.GetVar("url")%>">
-<%if(ics.GetVar("filename")!=null) { %>
-<img src="/fp/Framework/thumbs/<%=ics.GetVar("filename")%>">
-<% } %>
-<span class="name"><%=ics.GetVar("description")%></span>
-</a>
-<span class="arrow"/>
-</li>
+	objectid="<%= ics.GetVar("cid") %>"/>
+<asset:getsubtype name="Asset" 
+	output="subtype"/>
+<render:calltemplate 
+  site="<%=ics.GetVar("site")%>"
+  tid="<%=ics.GetVar("tid")%>" 
+  c="<%=ics.GetVar("c")%>" 
+  cid="<%=ics.GetVar("cid")%>"
+  tname="<%= ics.GetVar("subtype") + "/fpItem" %>" 
+  slotname="fpItem">
+	 <render:argument name="p" 
+	   value="<%= ics.GetVar("p") %>"/>
+</render:calltemplate>
 </cs:ftcs>
