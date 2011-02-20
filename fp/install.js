@@ -271,7 +271,7 @@ function installEntries() {
 }
 
 function toggleAll(where) {
-	console.log($("table" + where).find(":checkbox"));
+	//console.log($("table" + where).find(":checkbox"));
 	$("table" + where).find(":checkbox").each(function(node) {
 		// console.log(this);
 		$(this).attr("checked", !$(this).is(":checked"));
@@ -324,3 +324,8 @@ $(function() {
 		toggleAll("#sampleTable")
 	});
 })
+
+// stub to disable all my console.log debugging calls...
+if(typeof console === "undefined") {
+    console = { log: function() { } };
+}
