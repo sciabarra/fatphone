@@ -1,0 +1,56 @@
+<%--Copyright (C) 2001 by Michele Sciabarra'
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. --%>
+<HTML><%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"%><%@ taglib
+	prefix="asset" uri="futuretense_cs/asset.tld"%><%@ taglib
+	prefix="assetset" uri="futuretense_cs/assetset.tld"%><%@ taglib
+	prefix="commercecontext" uri="futuretense_cs/commercecontext.tld"%><%@ taglib
+	prefix="ics" uri="futuretense_cs/ics.tld"%><%@ taglib
+	prefix="listobject" uri="futuretense_cs/listobject.tld"%><%@ taglib
+	prefix="render" uri="futuretense_cs/render.tld"%><%@ taglib
+	prefix="searchstate" uri="futuretense_cs/searchstate.tld"%><%@ taglib
+	prefix="siteplan" uri="futuretense_cs/siteplan.tld"%><%@ page
+	import="COM.FutureTense.Interfaces.*,
+                   COM.FutureTense.Util.ftMessage,
+                   COM.FutureTense.Util.ftErrors"%><cs:ftcs>
+	<%-- fpIndex
+
+INPUT
+
+OUTPUT
+
+--%>
+	<%-- Record dependencies for the SiteEntry and the CSElement --%>
+	<ics:if condition='<%=ics.GetVar("seid")!=null%>'>
+		<ics:then>
+			<render:logdep cid='<%=ics.GetVar("seid")%>' c="SiteEntry" />
+		</ics:then>
+	</ics:if>
+	<ics:if condition='<%=ics.GetVar("eid")!=null%>'>
+		<ics:then>
+			<render:logdep cid='<%=ics.GetVar("eid")%>' c="CSElement" />
+		</ics:then>
+	</ics:if>
+	<asset:load name="fpHome" type="Page" field="name" value="fpHome" />
+	<asset:get name="fpHome" field="id" />
+	<render:calltemplate site="<%=ics.GetVar("site")%>"
+		tid="<%=ics.GetVar("eid")%>" ttype="CSElement" c="Page"
+		cid="<%=ics.GetVar("id")%>" tname="/fpLayoutJs" slotname="fpLayout">
+	</render:calltemplate>
+</cs:ftcs>
