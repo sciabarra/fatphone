@@ -33,7 +33,7 @@ THE SOFTWARE.
  import="COM.FutureTense.Interfaces.*,
                    COM.FutureTense.Util.ftMessage,
                    COM.FutureTense.Util.ftErrors"
-%><cs:ftcs><%-- Page/fpBody
+%><cs:ftcs><%-- Page/fpItem
 
 INPUT
 
@@ -42,6 +42,7 @@ OUTPUT
 --%>
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
+<ics:logmsg msg=">>>> fp_C/fpItemJs"/>
 <asset:load name="Asset"
 	type="<%= ics.GetVar("c") %>"
 	objectid="<%= ics.GetVar("cid") %>"/>
@@ -52,8 +53,8 @@ OUTPUT
   tid="<%=ics.GetVar("tid")%>" 
   c="<%=ics.GetVar("c")%>" 
   cid="<%=ics.GetVar("cid")%>"
-  tname="<%= ics.GetVar("subtype") + "/fpBody" %>" 
-  slotname="fpBody">
+  tname="<%= ics.GetVar("subtype") + "/fpItemJs" %>" 
+  slotname="fpItemJs">
 	 <render:argument name="p" 
 	   value="<%= ics.GetVar("p") %>"/>
 </render:calltemplate>

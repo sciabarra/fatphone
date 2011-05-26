@@ -1,0 +1,9 @@
+{
+ "AssetType": "Template",
+ "name": "fpItemJs",
+ "description": "FatPhone URL Item",
+ "subtype": "Page",
+ "rootelement": "Page/fpItemJs",
+ "ttype": "b",
+ "category": "nav"
+}

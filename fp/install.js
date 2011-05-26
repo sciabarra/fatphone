@@ -266,8 +266,12 @@ function installElements() {
 
 function installEntries() {
 	installEntry("FatPhone", "FatPhone.json", function(status) {
-		$('#installEntryResult').text(status.result)
+		$('#installEntryResult1').text(status.result)
+		installEntry("FatPhoneJs", "FatPhoneJs.json", function(status) {
+			$('#installEntryResult2').text(status.result)
+		});
 	});
+	
 }
 
 function toggleAll(where) {

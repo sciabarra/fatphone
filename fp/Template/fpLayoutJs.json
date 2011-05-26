@@ -1,0 +1,9 @@
+{
+ "AssetType": "Template",
+ "name": "fpLayoutJs",
+ "description": "FatPhone Layout Json",
+ "rootelement": "/fpLayoutJs",
+ "category": "page",
+ "ttype": "x",
+ "category": "page"
+}

@@ -1,0 +1,9 @@
+{
+ "AssetType": "Template",
+ "name": "fpBodyJs",
+ "description": "FatPhone Content Body",
+ "rootelement": "fp_C/fpBodyJs",
+ "subtype": "fp_C",
+ "ttype": "b",
+ "category": "sub"
+}

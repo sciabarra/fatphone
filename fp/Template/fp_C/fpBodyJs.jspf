@@ -28,9 +28,9 @@ THE SOFTWARE.
 %><%@ taglib prefix="render" uri="futuretense_cs/render.tld"
 %><%@ taglib prefix="siteplan" uri="futuretense_cs/siteplan.tld"
 %><%@ taglib prefix="searchstate" uri="futuretense_cs/searchstate.tld"
-%><%@ page
- contentType="application/json; charset=UTF-8"
- import="COM.FutureTense.Interfaces.*,
+%><%@ page 
+	contentType="application/json; charset=UTF-8"
+	import="COM.FutureTense.Interfaces.*,
                    COM.FutureTense.Util.ftMessage,
                    COM.FutureTense.Util.ftErrors"
 %><cs:ftcs><%-- Page/fpBody
@@ -52,8 +52,8 @@ OUTPUT
   tid="<%=ics.GetVar("tid")%>" 
   c="<%=ics.GetVar("c")%>" 
   cid="<%=ics.GetVar("cid")%>"
-  tname="<%= ics.GetVar("subtype") + "/fpBody" %>" 
-  slotname="fpBody">
+  tname="<%= ics.GetVar("subtype") + "/fpBodyJs" %>" 
+  slotname="fpBodyJs">
 	 <render:argument name="p" 
 	   value="<%= ics.GetVar("p") %>"/>
 </render:calltemplate>

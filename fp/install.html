@@ -52,8 +52,14 @@ h1,h2 {
 	padding-right: 2px;
 	padding-top: 2px;
 }
-h1 { font-size: 24px; }
-h2 { font-size: 18px; }
+
+h1 {
+	font-size: 24px;
+}
+
+h2 {
+	font-size: 18px;
+}
 </style>
 </head>
 <body>
@@ -62,7 +68,7 @@ h2 { font-size: 18px; }
 <ul>
 	<li>Create a site called FatPhone (name mandatory)</li>
 	<li>Create a FlexFamily called FatPhone with the following type
-	names (mandatory):<br></br>
+	names (mandatory):<br />
 	<table border="1" cellspacing="0">
 		<tr>
 			<th>Type Name</th>
@@ -92,8 +98,11 @@ h2 { font-size: 18px; }
 	</li>
 </ul>
 
-<b>IMPORTANT!!!</b> On Windows I experienced a long delay when posting assets.<br>
-Please be patient when the installer looks to have stalled (it actually is not).
+<b>IMPORTANT!!!</b>
+On Windows I experienced a long delay when posting assets.
+<br />
+Please be patient when the installer looks to have stalled (it actually
+is not).
 
 <h2>Login</h2>
 
@@ -102,7 +111,7 @@ Please be patient when the installer looks to have stalled (it actually is not).
 	<tr>
 		<td align="right">ContentServer:</td>
 		<td><input id="url" type="text" size="40"
-			value="http://localhost:8080/cs/" /></td>
+			value="http://localhost:8180/cs/" /></td>
 	</tr>
 	<tr>
 		<td align="right">Username:</td>
@@ -126,58 +135,39 @@ Please be patient when the installer looks to have stalled (it actually is not).
 
 <pre id="message"></pre>
 
+<script>
+function genTable(rows) {
+	for(row in rows) {
+       document.write("<tr><td><input type='checkbox' /></td><td>");
+       document.write(rows[row]);
+       document.write("</td><td></td></tr>");
+	}
+}
+</script>
 
 <h2>Install Elements</h2>
 <form>
-
 <table id="elementTable" border="0" cellspacing="2" cellpadding="2">
 	<tbody>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>CSElement:fpIndex</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:/fpLayout</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:Page/fpBody</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:Page/fpContent</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:Page/fpItem</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpBody</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpItem</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpMultiText/fpBody</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpMultiText/fpItem</td>
-			<td></td>
-		</tr>
-
+		<script type="text/javascript">
+	  genTable(['CSElement:fpIndex', 
+	            'CSElement:fpIndexJs',
+	      	    'Template:/fpLayout', 
+	      	    'Template:/fpLayoutJs', 
+	      	    'Template:Page/fpBody',  
+	      	    'Template:Page/fpBodyJs',  
+	      	    'Template:Page/fpItem',  
+	      	    'Template:Page/fpItemJs',  
+	      	    'Template:fp_C/fpBody', 
+	      	    'Template:fp_C/fpBodyJs', 
+	      	    'Template:fp_C/fpItem',  
+	      	    'Template:fp_C/fpItemJs',  
+	      	    'Template:fp_C/fpMultiText/fpBody', 
+	      	    'Template:fp_C/fpMultiText/fpBodyJs', 
+	      	    'Template:fp_C/fpMultiText/fpItem',  
+	      	    'Template:fp_C/fpMultiText/fpItemJs'  
+	      	    ])
+	</script>
 		<tr>
 			<td><input id="allElements" type="button" value="All Elements" /></td>
 			<td colspan="2"><input id="installElements" type="button"
@@ -188,108 +178,39 @@ Please be patient when the installer looks to have stalled (it actually is not).
 </form>
 
 <h2>Install Assets</h2>
+
 <form>
-<table id="assetTable" "border="0" cellspacing="2" cellpadding="2">
+<table id="assetTable" border="0" cellspacing="2" cellpadding="2">
 	<tbody>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>AttrTypes:fpFckEditor</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpTitle</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpText</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpTitle2</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpText2</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpTitle3</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpText3</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpTitle4</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_A:fpText4</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_CD:fpMultiText</td>
-			<td></td>
-		</tr>
-
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>CSElement:fpIndex</td>
-			<td></td>
-		</tr>
-
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:/fpLayout</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:Page/fpBody</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:Page/fpContent</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:Page/fpItem</td>
-			<td></td>
-		</tr>
-
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpItem</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpBody</td>
-			<td></td>
-		</tr>
-
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpMultiText/fpItem</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Template:fp_C/fpMultiText/fpBody</td>
-			<td></td>
-		</tr>
+		<script type="text/javascript">
+	  genTable([
+			'AttrTypes:fpFckEditor',
+			'fp_A:fpTitle',
+			'fp_A:fpText',
+			'fp_A:fpTitle2',
+			'fp_A:fpText2',
+			'fp_A:fpTitle3',
+			'fp_A:fpText3',
+			'fp_A:fpTitle4',
+			'fp_A:fpText4',
+			'fp_CD:fpMultiText',
+			'CSElement:fpIndex',
+			'CSElement:fpIndexJs',
+			'Template:/fpLayout',
+			'Template:/fpLayoutJs',
+			'Template:Page/fpBody',
+			'Template:Page/fpBodyJs',
+			'Template:Page/fpItem',
+			'Template:Page/fpItemJs',
+			'Template:fp_C/fpBody',
+			'Template:fp_C/fpBodyJs',
+			'Template:fp_C/fpItem',
+			'Template:fp_C/fpItemJs',
+			'Template:fp_C/fpMultiText/fpItem',
+			'Template:fp_C/fpMultiText/fpItemJs',
+			'Template:fp_C/fpMultiText/fpBody',
+			'Template:fp_C/fpMultiText/fpBodyJs'])
+		</script>
 		<tr>
 			<td><input type="button" id="allAssets" value="All Assets" /></td>
 			<td colspan="2"><input id="installAssets" type="button"
@@ -300,53 +221,19 @@ Please be patient when the installer looks to have stalled (it actually is not).
 
 <h2>Install Sample Content</h2>
 
-<table id="sampleTable" "border="0" cellspacing="2" cellpadding="2">
+<table id="sampleTable" border="0" cellspacing="2" cellpadding="2">
 	<tbody>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Page:fpHome</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Page:fpMusic</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Page:fpNotes</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Page:fpOther</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Page:fpPhotos</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>Page:fpStore</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_C:fpWelcome</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_C:fpAbout</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input type="checkbox" /></td>
-			<td>fp_C:fpLicense</td>
-			<td></td>
-		</tr>
+		<script type="text/javascript">
+	  genTable(['Page:fpHome',
+		      'Page:fpMusic',
+		      'Page:fpNotes',
+		      'Page:fpOther',
+		      'Page:fpPhotos',
+		      'Page:fpStore',
+		      'fp_C:fpWelcome',
+		      'fp_C:fpAbout',
+		      'fp_C:fpLicense'])
+		</script>
 		<tr>
 			<td><input type="button" id="allSamples" value="All Samples" /></td>
 			<td colspan="2"><input id="installSamples" type="button"
@@ -360,10 +247,18 @@ Please be patient when the installer looks to have stalled (it actually is not).
 
 <table>
 	<tr>
-		<td>FatPhone</td>
-		<td><input disabled="disabled" id="installEntries" type="button"
-			value="Install Entry" /></td>
-		<td id="installEntryResult"></td>
+		<tr>
+			<td>FatPhone</td>
+			<td id="installEntryResult1"></td>
+		</tr>
+		<tr>
+			<td>FatPhoneJs</td>
+			<td id="installEntryResult2"></td>
+		</tr>
+		<tr>
+			<td><input disabled="disabled" id="installEntries" type="button"
+				value="Install Entry" /></td>
+		</tr>
 	</tr>
 </table>
 </form>

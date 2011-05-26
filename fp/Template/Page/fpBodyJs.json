@@ -1,0 +1,9 @@
+{
+ "AssetType": "Template",
+ "name": "fpBodyJs",
+ "description": "FatPhone Page Json",
+ "rootelement": "Page/fpBodyJs",
+ "subtype": "Page",
+ "ttype": "b",
+ "category": "sub"
+}
