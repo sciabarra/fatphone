@@ -28,10 +28,12 @@ THE SOFTWARE.
 %><%@ taglib prefix="render" uri="futuretense_cs/render.tld"
 %><%@ taglib prefix="siteplan" uri="futuretense_cs/siteplan.tld"
 %><%@ taglib prefix="searchstate" uri="futuretense_cs/searchstate.tld"
-%><%@ page import="COM.FutureTense.Interfaces.*,
+%><%@ page 
+	contentType="application/json; charset=UTF-8"
+	import="COM.FutureTense.Interfaces.*,
                    COM.FutureTense.Util.ftMessage,
                    COM.FutureTense.Util.ftErrors"
-%><cs:ftcs><%-- Page/fpBody
+%><cs:ftcs><%-- fp_C/fpBody
 
 INPUT
 
@@ -40,86 +42,19 @@ OUTPUT
 --%>
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
-<asset:load name="currentAsset" 
-  type="<%=ics.GetVar("c") %>"
-  objectid="<%=ics.GetVar("cid") %>"/>
-<asset:get name="currentAsset" field="name" output="title"/>
-<% if(ics.GetVar("title").startsWith("fp"))
-	 ics.SetVar("title", ics.GetVar("title").substring(2));
- //TODO split camel case in separate words
-%>
-<body>
-<div id="topbar">
-  <div id="title"><%=ics.GetVar("title") %></div>
-</div>
-<div id="content">
-<assetset:setasset name="myAssetSet" 
-        type='<%=ics.GetVar("c") %>' 
-        id='<%= ics.GetVar("cid") %>'/>
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpTitle"
-        listvarname="Title" 
-        typename="fp_A" />
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpText"
-        listvarname="Text" 
-        typename="fp_A" />
-<% if(ics.GetList("Title")!=null&&ics.GetList("Title").hasData()) { %>
-<span class="graytitle"><%=ics.GetList("Title").getValue("value")%></span>
-<% } if(ics.GetList("Text")!=null&&ics.GetList("Text").hasData()) { %>
-<ul class="pageitem">
- <li class="textbox"><p><%=ics.GetList("Text").getValue("value")%></p></li>
-</ul> 
-<% } %>        
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpTitle2"
-        listvarname="Title2" 
-        typename="fp_A" />
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpText2"
-        listvarname="Text2" 
-        typename="fp_A" />
-<% if(ics.GetList("Title2")!=null&&ics.GetList("Title2").hasData()) { %>
-<span class="graytitle"><%=ics.GetList("Title2").getValue("value")%></span>
-<% } if(ics.GetList("Text2")!=null&&ics.GetList("Text2").hasData()) { %>
-<ul class="pageitem">
- <li class="textbox"><p><%=ics.GetList("Text2").getValue("value")%></p></li>
-</ul>        
-<% } %>              
-
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpTitle3"
-        listvarname="Title3" 
-        typename="fp_A" />
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpText3"
-        listvarname="Text3" 
-        typename="fp_A" />
-<% if(ics.GetList("Title3")!=null&&ics.GetList("Title3").hasData()) { %>
-<span class="graytitle"><%=ics.GetList("Title3").getValue("value")%></span>
-<% } if(ics.GetList("Text3")!=null&&ics.GetList("Text3").hasData()) { %>
-<ul class="pageitem">
- <li class="textbox"><p><%=ics.GetList("Text3").getValue("value")%></p></li>
-</ul>        
-<% } %>              
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpTitle4"
-        listvarname="Title4" 
-        typename="fp_A" />
-<assetset:getattributevalues name="myAssetSet" 
-        attribute="fpText4"
-        listvarname="Text4" 
-        typename="fp_A" />
-<% if(ics.GetList("Title4")!=null&&ics.GetList("Title4").hasData()) { %>
-<span class="graytitle"><%=ics.GetList("Title4").getValue("value")%></span>
-<% } if(ics.GetList("Text4")!=null&&ics.GetList("Text4").hasData()) { %>
-<ul class="pageitem">
-  <li class="textbox"><p><%=ics.GetList("Text4").getValue("value")%></p></li>
-</ul>
-<% } %>              
-</div>
-<div id="footer"><!-- Support iWebKit by sending us traffic; please keep this footer on your page, consider it a thank you for our work :-) -->
-Powered by <a class="noeffect" href="http://iwebkit.net">iWebKit</a>
-&amp; <a class="noeffect" href="http://www.sciabarra.com/fatwire/fatphone">FatPhone</a></div>
-</body>
+<asset:load name="Asset"
+	type="<%= ics.GetVar("c") %>"
+	objectid="<%= ics.GetVar("cid") %>"/>
+<asset:getsubtype name="Asset" 
+	output="subtype"/>
+<render:calltemplate 
+  site="<%=ics.GetVar("site")%>"
+  tid="<%=ics.GetVar("tid")%>" 
+  c="<%=ics.GetVar("c")%>" 
+  cid="<%=ics.GetVar("cid")%>"
+  tname="<%= ics.GetVar("subtype") + "/fpBodyJs" %>" 
+  slotname="fpBodyJs">
+	 <render:argument name="p" 
+	   value="<%= ics.GetVar("p") %>"/>
+</render:calltemplate>
 </cs:ftcs>

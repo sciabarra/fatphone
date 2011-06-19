@@ -28,9 +28,7 @@ THE SOFTWARE.
 %><%@ taglib prefix="render" uri="futuretense_cs/render.tld"
 %><%@ taglib prefix="siteplan" uri="futuretense_cs/siteplan.tld"
 %><%@ taglib prefix="searchstate" uri="futuretense_cs/searchstate.tld"
-%><%@ page 
-	contentType="application/json; charset=UTF-8"
-	import="COM.FutureTense.Interfaces.*,
+%><%@ page import="COM.FutureTense.Interfaces.*,
                    COM.FutureTense.Util.ftMessage,
                    COM.FutureTense.Util.ftErrors"
 %><cs:ftcs><%-- Page/fpBody
@@ -42,19 +40,61 @@ OUTPUT
 --%>
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
-<asset:load name="Asset"
-	type="<%= ics.GetVar("c") %>"
-	objectid="<%= ics.GetVar("cid") %>"/>
-<asset:getsubtype name="Asset" 
-	output="subtype"/>
-<render:calltemplate 
-  site="<%=ics.GetVar("site")%>"
-  tid="<%=ics.GetVar("tid")%>" 
-  c="<%=ics.GetVar("c")%>" 
-  cid="<%=ics.GetVar("cid")%>"
-  tname="<%= ics.GetVar("subtype") + "/fpBodyJs" %>" 
-  slotname="fpBodyJs">
-	 <render:argument name="p" 
-	   value="<%= ics.GetVar("p") %>"/>
-</render:calltemplate>
+<asset:load name="currentAsset" 
+  type="<%=ics.GetVar("c") %>"
+  objectid="<%=ics.GetVar("cid") %>"
+/><assetset:setasset name="myAssetSet" 
+        type='<%=ics.GetVar("c") %>' 
+        id='<%= ics.GetVar("cid") %>'
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle"
+        listvarname="Title" 
+        typename="fp_A" 
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText"
+        listvarname="Text" 
+        typename="fp_A" 
+/><ics:listget listname="Title" fieldname="value" output="Title"
+/><ics:listget listname="Text" fieldname="value" output="Text"
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle2"
+        listvarname="Title2" 
+        typename="fp_A" 
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText2"
+        listvarname="Text2" 
+        typename="fp_A"
+/><ics:listget listname="Title2" fieldname="value" output="Title2"
+/><ics:listget listname="Text2" fieldname="value" output="Text2"
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle3"
+        listvarname="Title3" 
+        typename="fp_A" 
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText3"
+        listvarname="Text3" 
+        typename="fp_A"
+/><ics:listget listname="Title3" fieldname="value" output="Title3"
+/><ics:listget listname="Text3" fieldname="value" output="Text3"
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpTitle4"
+        listvarname="Title4" 
+        typename="fp_A" 
+/><assetset:getattributevalues name="myAssetSet" 
+        attribute="fpText4"
+        listvarname="Text4" 
+        typename="fp_A" 
+/><ics:listget listname="Title4" fieldname="value" output="Title4"
+/><ics:listget listname="Text4" fieldname="value" output="Text4"
+/><render:callelement scoped="global" elementname="encodeJson">
+  <render:argument name="input" value="Title,Title2,Title2,Title4,Text,Text2,Text3,Text4" />
+</render:callelement>, "body": [
+ {"title":"<%=ics.GetVar("Title") %>","text":"<%=ics.GetVar("Text") %>"}
+<% if(ics.GetList("Title2")!=null&&ics.GetList("Title2").hasData()) { %>
+ ,{"title":"<%=ics.GetVar("Title2") %>","text":"<%=ics.GetVar("Text2") %>"}
+<% } if(ics.GetList("Title3")!=null&&ics.GetList("Title3").hasData()) { %>
+ ,{"title":"<%=ics.GetVar("Title3") %>","text":"<%=ics.GetVar("Text3") %>"}
+<% } if(ics.GetList("Title4")!=null&&ics.GetList("Title4").hasData()) { %>
+ ,{"title":"<%=ics.GetVar("Title4") %>","text":"<%=ics.GetVar("Text4") %>"}
+<% } %>]
 </cs:ftcs>

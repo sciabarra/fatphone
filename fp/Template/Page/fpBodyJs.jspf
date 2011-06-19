@@ -57,18 +57,14 @@ OUTPUT
     <siteplan:children name="Node" 
       list="SiteChildren" 
       order="nrank" />
-   
+   ,"items": [  
    <ics:listget fieldname="#numRows" listname="Children" output="count"/>
-   <% int count = Integer.parseInt(ics.GetVar("count")); %>
-      
-   <ics:listloop listname="Children">
-   
+   <% int count = Integer.parseInt(ics.GetVar("count")); %>     
+   <ics:listloop listname="Children">  
         <ics:listget fieldname="#curRow" listname="Children" output="cur"/>   
 		<%  int cur =  Integer.parseInt(ics.GetVar("cur")) ; %>		
-		
 		<ics:listget fieldname="otype" listname="Children" output="otype"/>
 		<ics:listget fieldname="oid" listname="Children" output="oid"/>
-
 		<render:calltemplate 
 			site="<%= ics.GetVar("site") %>" 
 			tid="<%= ics.GetVar("tid") %>" 
@@ -81,12 +77,11 @@ OUTPUT
 		</render:calltemplate>
 		<%if(cur!=count){%>,<%}%>				   
 	</ics:listloop>
-
+	
     <ics:listget fieldname="#numRows" listname="SiteChildren" output="count"/>
     <% int count2 = Integer.parseInt(ics.GetVar("count")); %>
 	<%if(count2>0){%>,<%}%>
- 	<ics:listloop listname="SiteChildren">
-
+ 	<ics:listloop listname="SiteChildren">	
  	 	<ics:listget fieldname="otype" listname="SiteChildren" output="otype"/>
 		<ics:listget fieldname="oid" listname="SiteChildren" output="oid"/>
         <ics:listget fieldname="#curRow" listname="SiteChildren" output="cur"/>   
@@ -103,5 +98,5 @@ OUTPUT
 				 value="<%= ics.GetVar("cid") %>"/>
 		</render:calltemplate>
 		<%if(cur2!=count2){%>,<%}%>	
-	</ics:listloop>
+	</ics:listloop>]
 </cs:ftcs>

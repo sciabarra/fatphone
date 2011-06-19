@@ -70,8 +70,10 @@ OUTPUT
         attribute="fpTitle"
         listvarname="Title" 
         typename="fp_A" />
+<ics:listget listname="Title" fieldname="value" output="json" />
+<render:callelement elementname="encodeJson"/>
 { "url": "<%=ics.GetVar("url")%>",
- "description": "<%=ics.GetList("Title").getValue("value")%>",
+ "description": "<%=ics.GetVar("json")%>",
 <%if(ics.GetVar("filename")!=null && ics.GetVar("filename").trim().length()>0) { %>
  "icon": "/fp/Framework/thumbs/<%=ics.GetVar("filename")%>"
 <% } else { %>

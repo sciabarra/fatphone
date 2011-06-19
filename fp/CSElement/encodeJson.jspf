@@ -1,0 +1,105 @@
+<%@ taglib prefix="cs" uri="futuretense_cs/ftcs1_0.tld"%><%@ taglib
+	prefix="asset" uri="futuretense_cs/asset.tld"%><%@ taglib
+	prefix="assetset" uri="futuretense_cs/assetset.tld"%><%@ taglib
+	prefix="commercecontext" uri="futuretense_cs/commercecontext.tld"%><%@ taglib
+	prefix="ics" uri="futuretense_cs/ics.tld"%><%@ taglib
+	prefix="listobject" uri="futuretense_cs/listobject.tld"%><%@ taglib
+	prefix="render" uri="futuretense_cs/render.tld"%><%@ taglib
+	prefix="siteplan" uri="futuretense_cs/siteplan.tld"%><%@ taglib
+	prefix="searchstate" uri="futuretense_cs/searchstate.tld"%><%@ page
+	contentType="application/json; charset=UTF-8"
+	import="COM.FutureTense.Interfaces.*,COM.FutureTense.Util.ftMessage,COM.FutureTense.Util.ftErrors,java.util.*"
+%><%-- encode Json
+
+INPUT 
+     input tells the input var, defaults to "json"
+     input can be a comma separated list of variable names
+
+OUTPUT 
+   	  input variables are replaces with their json-encoded counterpart
+
+--%><%! // declare an utility method
+	 String quote(String s) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			/*switch (c) {
+			case '"':
+				sb.append("\\\"");
+				break;
+			case '\\':
+				sb.append("\\\\");
+				break;
+			case '/':
+				sb.append("\\/");
+				break;
+			case '\b':
+				sb.append("\\b");
+				break;
+			case '\f':
+				sb.append("\\f");
+				break;
+			case '\n':
+				sb.append("\\n");
+				break;
+			case '\r':
+				sb.append("\\r");
+				break;
+			case '\t':
+				sb.append("\\t");
+				break;
+			default:
+				sb.append(c);
+			}*/
+			sb.append(c);
+		}
+		return sb.toString();
+	}
+%><cs:ftcs><% try {
+     String vars = ics.GetVar("input");
+     //System.out.println("vars="+vars);
+     if(vars==null) 
+    	 vars="json";
+    StringTokenizer st = new StringTokenizer(vars, ",");
+    while(st.hasMoreTokens()) {
+    	 String var = st.nextToken();
+    	 String input = ics.GetVar(var);
+    	 System.out.println("* input="+input+" for var="+var);
+    	 if(input==null)
+    		 continue;
+    	 StringBuffer output = new StringBuffer();
+ 		 for (int i = 0; i < input.length(); i++) {
+ 			char c = input.charAt(i);
+ 			switch (c) {
+ 			case '\"':
+ 				output.append("\\\"");
+ 				break;
+ 			case '\\':
+ 				output.append("\\\\");
+ 				break;
+ 			case '/':
+ 				output.append("\\/");
+ 				break;
+ 			case '\b':
+ 				output.append("\\b");
+ 				break;
+ 			case '\f':
+ 				output.append("\\f");
+ 				break;
+ 			case '\n':
+ 				output.append("\\n");
+ 				break;
+ 			case '\r':
+ 				output.append("\\r");
+ 				break;
+ 			case '\t':
+ 				output.append("\\t");
+ 				break;
+ 			default:
+ 				output.append(c);
+ 			}
+ 		}  
+ 		System.out.println("* output="+output+" for var="+var);
+     	ics.SetVar(var, output.toString());
+     }
+} catch(Exception ex) { ex.printStackTrace(); } %></cs:ftcs>

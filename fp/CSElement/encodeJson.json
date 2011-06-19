@@ -1,0 +1,6 @@
+{
+ "AssetType": "CSElement",
+ "name": "encodeJson",
+ "description": "Encode Json",
+ "rootelement": "encodeJson"
+}

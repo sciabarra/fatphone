@@ -56,15 +56,16 @@ THE SOFTWARE.
 	  ics.LogMsg("loading by id="+lcid); %>
   <asset:load name='Asset' 
       type='<%=c %>' objectid='<%= cid %>'/>
+  <asset:getsubtype name="Asset" output="subtype"/> 
   <% } %>
 <asset:get name='Asset' field='id'/>
 <asset:get name='Asset' field='name'/>
 <asset:get name='Asset' field='description'/>
- "type": "<%= c %>",
- "id": "<%= ics.GetVar("id") %>",
- "name": "<%= ics.GetVar("name") %>",
- "description": "<%= ics.GetVar("description") %>",
- "children":  [
+ "id": "<%= ics.GetVar("id") %>"
+ ,"type": "<%= c %>"
+ ,"subtype": "<%= ics.GetVar("subtype") %>"
+ ,"name": "<%= ics.GetVar("name") %>"
+ ,"description": "<%= ics.GetVar("description") %>"
 <render:calltemplate 
   site="<%=ics.GetVar("site")%>"
   tid="<%=ics.GetVar("tid")%>" 
@@ -74,10 +75,9 @@ THE SOFTWARE.
   slotname="fpBodyJs">
 	 <render:argument name="p" 
 	   value="<%= ics.GetVar("p") %>"/>
-</render:calltemplate>]
+</render:calltemplate>
 <% } catch(Exception ex) { %>
  "error:" "<%=ex.getMessage() %>"
 <% } %>}
 <ics:logmsg msg="*** END fpLayoutJs"/>
-
 </cs:ftcs>
