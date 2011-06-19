@@ -1,4 +1,4 @@
-## FatPhone v0.2 
+## FatPhone v0.5 
  
 More information [here](http://www.sciabarra.com/fatwire/fatphone)
 
