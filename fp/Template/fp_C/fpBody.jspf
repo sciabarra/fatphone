@@ -41,18 +41,18 @@ OUTPUT
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
 <asset:load name="Asset"
-	type="<%= ics.GetVar("c") %>"
-	objectid="<%= ics.GetVar("cid") %>"/>
+	type='<%= ics.GetVar("c") %>'
+	objectid='<%= ics.GetVar("cid") %>'/>
 <asset:getsubtype name="Asset" 
 	output="subtype"/>
 <render:calltemplate 
-  site="<%=ics.GetVar("site")%>"
-  tid="<%=ics.GetVar("tid")%>" 
-  c="<%=ics.GetVar("c")%>" 
-  cid="<%=ics.GetVar("cid")%>"
-  tname="<%= ics.GetVar("subtype") + "/fpBody" %>" 
-  slotname="fpBody">
+  site='<%=ics.GetVar("site")%>'
+  tid='<%=ics.GetVar("tid")%>' 
+  c='<%=ics.GetVar("c")%>' 
+  cid='<%=ics.GetVar("cid")%>'
+  tname='<%= ics.GetVar("subtype") + "/fpBody" %>' 
+  slotname='fpBody'>
 	 <render:argument name="p" 
-	   value="<%= ics.GetVar("p") %>"/>
+	   value='<%= ics.GetVar("p") %>'/>
 </render:calltemplate>
 </cs:ftcs>

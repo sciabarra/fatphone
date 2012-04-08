@@ -41,8 +41,8 @@ OUTPUT
 <%-- Record dependencies for the Template --%>
 <ics:if condition='<%=ics.GetVar("tid")!=null%>'><ics:then><render:logdep cid='<%=ics.GetVar("tid")%>' c="Template"/></ics:then></ics:if>
 <asset:load name="currentAsset" 
-  type="<%=ics.GetVar("c") %>"
-  objectid="<%=ics.GetVar("cid") %>"/>
+  type='<%=ics.GetVar("c") %>'
+  objectid='<%=ics.GetVar("cid") %>'/>
 <asset:get name="currentAsset" field="name" output="title"/>
 <% if(ics.GetVar("title").startsWith("fp"))
 	 ics.SetVar("title", ics.GetVar("title").substring(2));

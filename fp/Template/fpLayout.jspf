@@ -53,8 +53,8 @@ OUTPUT
 	<script src="/fp/Framework/javascript/functions.js" type="text/javascript"></script>
 
 <asset:load name="currentAsset" 
-  type="<%=ics.GetVar("c") %>"
-  objectid="<%=ics.GetVar("cid") %>"/>
+  type='<%=ics.GetVar("c") %>'
+  objectid='<%=ics.GetVar("cid") %>'/>
 <asset:get name="currentAsset" field="name" output="title"/>
 <% if(ics.GetVar("title").startsWith("fp"))
 	 ics.SetVar("title", ics.GetVar("title").substring(2));
@@ -67,14 +67,14 @@ OUTPUT
 	--%>
 </head>
 <render:calltemplate 
-  site="<%=ics.GetVar("site")%>"
-  tid="<%=ics.GetVar("tid")%>" 
-  c="<%=ics.GetVar("c")%>" 
-  cid="<%=ics.GetVar("cid")%>"
-  tname="fpBody" 
-  slotname="fpBody">
+  site='<%=ics.GetVar("site")%>'
+  tid='<%=ics.GetVar("tid")%>' 
+  c='<%=ics.GetVar("c")%>' 
+  cid='<%=ics.GetVar("cid")%>'
+  tname='fpBody' 
+  slotname='fpBody'>
 	 <render:argument name="p" 
-	   value="<%= ics.GetVar("p") %>"/>
+	   value='<%= ics.GetVar("p") %>'/>
 </render:calltemplate>
 </html>
 </cs:ftcs>

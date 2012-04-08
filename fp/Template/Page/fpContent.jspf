@@ -43,8 +43,8 @@ OUTPUT
 <div id="content">
     <%-- load childer from the siteplan --%>
 	<asset:load name="Asset"
-		type="<%= ics.GetVar("c") %>"
-		objectid="<%= ics.GetVar("cid") %>"/>
+		type='<%= ics.GetVar("c") %>'
+		objectid='<%= ics.GetVar("cid") %>'/>
 	<asset:children name="Asset"
 	    list="Children"/>
 	<asset:getsitenode name="Asset" 
@@ -63,26 +63,26 @@ OUTPUT
 		<li><%= ics.GetVar("otype") %> - <%= ics.GetVar("oid") %></li>
 		--%>
 		<render:calltemplate 
-			site="<%= ics.GetVar("site") %>" 
-			tid="<%= ics.GetVar("tid") %>" 
-			c="<%= ics.GetVar("otype") %>"
-			cid="<%= ics.GetVar("oid") %>"
-			slotname="fpItem"
+			site='<%= ics.GetVar("site") %>' 
+			tid='<%= ics.GetVar("tid") %>' 
+			c='<%= ics.GetVar("otype") %>'
+			cid='<%= ics.GetVar("oid") %>'
+			slotname='fpItem'
 			tname="fpItem">
-				<render:argument name="p" value="<%= ics.GetVar("cid") %>"/>
+				<render:argument name="p" value='<%= ics.GetVar("cid") %>'/>
 		</render:calltemplate>	
 	</ics:listloop>
  	<ics:listloop listname="SiteChildren">
 		<ics:listget fieldname="otype" listname="SiteChildren" output="otype"/>
 		<ics:listget fieldname="oid" listname="SiteChildren" output="oid"/>
 		<render:calltemplate 
-			site="<%= ics.GetVar("site") %>" 
-			tid="<%= ics.GetVar("tid") %>" 
-			c="<%= ics.GetVar("otype") %>"
-			cid="<%= ics.GetVar("oid") %>"
+			site='<%= ics.GetVar("site") %>' 
+			tid='<%= ics.GetVar("tid") %>' 
+			c='<%= ics.GetVar("otype") %>'
+			cid='<%= ics.GetVar("oid") %>'
 			slotname="fpItem"
 			tname="fpItem">
-				<render:argument name="p" value="<%= ics.GetVar("cid") %>"/>
+				<render:argument name="p" value='<%= ics.GetVar("cid") %>'/>
 		</render:calltemplate>	
 	</ics:listloop>
   </ul>
